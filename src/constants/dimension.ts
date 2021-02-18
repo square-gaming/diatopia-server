@@ -1,0 +1,4 @@
+export enum DIMENSION {
+  SURFACE,
+  UNDERGROUND,
+}

@@ -1,0 +1,28 @@
+const EVENT = {
+  ELEMENT: {
+    CREATE: 'ELEMENT_CREATE',
+    DESTORY: 'ELEMENT_DESTORY',
+    UPDATE: 'ELEMENT_UPDATE',
+  },
+  WORLD: {
+    DAYLIGHT_CYCLE: 'WORLD_DAYLIGHT_CYCLE',
+    PLAYERS: {
+      JOIN: 'WORLD_PLAYERS_JOIN',
+      MOVE: 'WORLD_PLAYERS_MOVE',
+    },
+  },
+  SURFACE: {
+    DAYLIGHT_CYCLE: 'SURFACE_DAYLIGHT_CYCLE',
+    MOB: {
+      MOVE: 'SURFACE_MOB_MOVE',
+    },
+  },
+  PLAYER: {
+    MOVE: 'PLAYER_MOVE',
+  },
+  MOB: {
+    MOVE: 'MOB_MOVE',
+  },
+};
+
+export default EVENT;
