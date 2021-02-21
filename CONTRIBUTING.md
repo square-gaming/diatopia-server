@@ -69,7 +69,7 @@ We use an automatic code formatter [ESLint](https://eslint.org/) and [Prettier](
 Then, our linter will catch most issues that may exist in your code.
 
 However, there are still some styles that the linter cannot pick up.
-If you are unsure about something, looking at [Airbnb’s Style Guide](https://github.com/airbnb/javascript) will guide you in the right direction.
+If you are unsure about something, looking at [Google TypeScript Style Guide](https://google.github.io/styleguide/tsguide.html) will guide you in the right direction.
 
 ## Commit Convention Guide
 
