@@ -1,4 +1,6 @@
-export enum DIMENSION {
+enum DIMENSION {
   SURFACE,
   UNDERGROUND,
 }
+
+export default DIMENSION;

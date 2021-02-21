@@ -1,5 +1,5 @@
-import Point from '../../../basics/Point';
-import Block from '../../../core/Block';
+import Point from "../../../basics/Point";
+import Block from "../../../core/Block";
 
 abstract class Light extends Block {
   lightLevel: number;

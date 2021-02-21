@@ -1,5 +1,5 @@
-import {DIRECTION} from '../../../constants/direction';
-import Floor from '../../../models/block/Floor';
+import DIRECTION from "../../../constants/direction";
+import Floor from "../../../models/block/Floor";
 
 const floor = (adjacents: Floor[], source: Floor) => {
   if (

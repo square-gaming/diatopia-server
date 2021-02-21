@@ -1,9 +1,9 @@
-import {DIRECTION} from '../../../constants/direction';
-import Segment from '../../../basics/Segment';
-import Vector from '../../../basics/Vector';
-import Door from '../../../models/block/structure/Door';
-import Wall from '../../../models/block/structure/Wall';
-import {StructuresType} from '../../../types';
+import DIRECTION from "../../../constants/direction";
+import Segment from "../../../basics/Segment";
+import Vector from "../../../basics/Vector";
+import Door from "../../../models/block/structure/Door";
+import Wall from "../../../models/block/structure/Wall";
+import type { StructuresType } from "../../../types";
 
 export const door = (adjacents: StructuresType[], source: Door) => {
   if (

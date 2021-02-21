@@ -1,18 +1,31 @@
-import http from 'http';
-import Wall from '../models/block/structure/Wall';
-import Door from '../models/block/structure/Door';
-import Surface from '../models/level/Surface';
-import Underground from '../models/level/Underground';
-import World from '../models/World';
-import Server from '../Server';
-import Player from '../models/Player';
-import Floor from '../models/block/Floor';
-import Point from '../basics/Point';
-import WebSocket from 'ws';
-import Manager from '../Manager';
-import Torch from '../models/block/light/Torch';
-import Cow from '../models/entity/mobs/Cow';
+import http from "http";
+import WebSocket from "ws";
+import Wall from "../models/block/structure/Wall";
+import Door from "../models/block/structure/Door";
+import Surface from "../models/level/Surface";
+import Underground from "../models/level/Underground";
+import World from "../models/World";
+import Player from "../models/Player";
+import Floor from "../models/block/Floor";
+import Point from "../basics/Point";
+import Manager from "../Manager";
+import Torch from "../models/block/light/Torch";
+import Cow from "../models/entity/mobs/Cow";
 
+export type Dimension = 0 | 1;
+export type LightLevel = 0;
+export type Direction = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
+export type Facing = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
+export type Toward = 0 | 1;
+export type Level = Surface | Underground;
+export type StructuresType = Wall | Door;
+export type BlocksType = Floor | Wall | Door | Torch;
+export type EntitiesType = Cow;
+
+export interface Action {
+  type: string;
+  payload?: any;
+}
 export interface ManagerInterface {
   world: World;
   actions: Action[];
@@ -33,16 +46,3 @@ export interface ServerInterface {
   _push: () => void;
   _websocketSetup: (ws: WebSocket, req: http.IncomingMessage) => void;
 }
-export interface Action {
-  type: string;
-  payload?: any;
-}
-export type Dimension = 0 | 1;
-export type LightLevel = 0;
-export type Direction = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
-export type Facing = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
-export type Toward = 0 | 1;
-export type Level = Surface | Underground;
-export type StructuresType = Wall | Door;
-export type BlocksType = Floor | Wall | Door | Torch;
-export type EntitiesType = Cow;

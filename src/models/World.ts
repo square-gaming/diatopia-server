@@ -1,11 +1,11 @@
-import Surface from './level/Surface';
-import Underground from './level/Underground';
-import Player from './Player';
-import Time from './Time';
-import {collisionTest} from '../algorithm/physics/collision';
-import EVENT from '../constants/event';
-import Element from '../core/Element';
-import {DIMENSION} from '../constants/dimension';
+import Surface from "./level/Surface";
+import Underground from "./level/Underground";
+import Player from "./Player";
+import Time from "./Time";
+import { collisionTest } from "../algorithm/physics/collision";
+import EVENT from "../constants/event";
+import Element from "../core/Element";
+import DIMENSION from "../constants/dimension";
 
 class World extends Element {
   levels: [Surface, Underground];
@@ -38,19 +38,19 @@ class World extends Element {
   }
 
   protected create() {
-    this.surface.onMobMove(mob => {
+    this.surface.onMobMove((mob) => {
       collisionTest(mob, [
         this.surface.blocks,
         this.surface.entities,
         Array.from(this.players, ([, player]) => player),
       ]);
     });
-    this.onPlayersJoin(player => {
-      player.onMove(player => {
+    this.onPlayersJoin((player) => {
+      player.onMove(() => {
         collisionTest(player, [
           this.levels[player.dimension].blocks,
           this.levels[player.dimension].entities,
-          Array.from(this.players, ([, player]) => player),
+          Array.from(this.players, () => player),
         ]);
         this.emit(EVENT.WORLD.PLAYERS.MOVE, player);
       });

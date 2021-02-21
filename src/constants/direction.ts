@@ -1,4 +1,4 @@
-export enum DIRECTION {
+enum DIRECTION {
   NORTH,
   NORTH_EAST,
   EAST,
@@ -8,3 +8,5 @@ export enum DIRECTION {
   WEST,
   NORTH_WEST,
 }
+
+export default DIRECTION;

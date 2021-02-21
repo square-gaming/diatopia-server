@@ -1,16 +1,14 @@
-import {LevelInterface} from '../../types/models';
-import Time from '../Time';
-import Point from '../../basics/Point';
+import type { LevelInterface } from "../../types/models";
+import Time from "../Time";
+import Point from "../../basics/Point";
 import {
-  PatternReconfigure,
+  patternReconfigure,
   configureRule,
-} from '../../algorithm/patternReconfiguration';
-import {GLOBAL} from '../../constants/global';
-import Element from '../../core/Element';
-import Vector from '../../basics/Vector';
-import Floor from '../block/Floor';
-import Structure from '../block/structure/Structure';
-import {BlocksType, EntitiesType, StructuresType} from '../../types';
+} from "../../algorithm/patternReconfiguration";
+import GLOBAL from "../../constants/global";
+import Element from "../../core/Element";
+import Vector from "../../basics/Vector";
+import type { BlocksType, EntitiesType } from "../../types";
 
 abstract class Level extends Element implements LevelInterface {
   time: Time;
@@ -32,13 +30,13 @@ abstract class Level extends Element implements LevelInterface {
     this.time = time;
     this.spawnPos = spawnPos instanceof Point ? spawnPos : new Point(spawnPos);
     this.border = border;
-    this.blocks = PatternReconfigure(blocks, configureRule);
+    this.blocks = patternReconfigure(blocks, configureRule);
     this.entities = entities;
     this.lightLevel = lightLevel;
   }
 
   public getBlock(type: string, pos: Point) {
-    return this.blocks.find(block => {
+    return this.blocks.find((block) => {
       if (
         block.name === type &&
         Math.floor(pos.x / GLOBAL.UNIT_LENGTH) * GLOBAL.UNIT_LENGTH ===
@@ -47,15 +45,14 @@ abstract class Level extends Element implements LevelInterface {
           block.pos.y
       ) {
         return block;
-      } else {
-        throw Error();
       }
+      throw Error();
     });
   }
 
   public getBlocks(pos: Point) {
     return this.blocks.filter(
-      block =>
+      (block) =>
         Math.floor(pos.x / GLOBAL.UNIT_LENGTH) * GLOBAL.UNIT_LENGTH ===
           block.pos.x &&
         Math.floor(pos.y / GLOBAL.UNIT_LENGTH) * GLOBAL.UNIT_LENGTH ===

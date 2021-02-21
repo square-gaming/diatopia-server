@@ -1,23 +1,24 @@
-import Point from './basics/Point';
-import Player from './models/Player';
-import {Dimension, Action} from './types';
-import World from './models/World';
-import {DIMENSION} from './constants/dimension';
-import EVENT from './constants/event';
-import action from './constants/action';
-import Mob from './models/entity/mobs/Mob';
+import Point from "./basics/Point";
+import Player from "./models/Player";
+import type { Dimension, Action } from "./types";
+import World from "./models/World";
+import DIMENSION from "./constants/dimension";
+import EVENT from "./constants/event";
+import action from "./constants/action";
+import Mob from "./models/entity/mobs/Mob";
 
 class Manager {
   world: World;
+
   actions: Action[];
 
   constructor() {
     this.world = new World();
     this.actions = [];
-    this._initialize();
+    this.initialize();
   }
 
-  private _initialize() {
+  private initialize() {
     this.world.surface.onDaylightCycle((lightLevel: number) => {
       this.actions.push(action.level.update.lightLevel(lightLevel));
     });
@@ -42,9 +43,8 @@ class Manager {
 
     if (player) {
       return player;
-    } else {
-      throw Error(`Player ${uid} could NOT be found.`);
     }
+    throw Error(`Player ${uid} could NOT be found.`);
   }
 
   public addPlayer(uid: string, name: string): Promise<Player> {
@@ -56,8 +56,8 @@ class Manager {
             new Player(
               uid,
               name,
-              {...this.world.surface.spawnPos},
-              {...this.world.surface.spawnPos}
+              { ...this.world.surface.spawnPos },
+              { ...this.world.surface.spawnPos }
             )
           )
           .get(uid);
@@ -88,7 +88,7 @@ class Manager {
       case DIMENSION.UNDERGROUND:
         return this.world.underground.getBlocks(pos);
       default:
-        throw Error('Unexpected dimension constant.');
+        throw Error("Unexpected dimension constant.");
     }
   }
 }

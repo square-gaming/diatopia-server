@@ -1,7 +1,7 @@
-import EVENT from '../../../constants/event';
-import Point from '../../../basics/Point';
-import Vector from '../../../basics/Vector';
-import Entity from '../Entity';
+import EVENT from "../../../constants/event";
+import Point from "../../../basics/Point";
+import Vector from "../../../basics/Vector";
+import Entity from "../Entity";
 
 abstract class Mob extends Entity {
   mass: number;

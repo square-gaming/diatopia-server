@@ -1,38 +1,11 @@
-import Floor from '../models/block/Floor';
-import Structure from '../models/block/structure/Structure';
-import Vector from '../basics/Vector';
-import Wall from '../models/block/structure/Wall';
-import Door from '../models/block/structure/Door';
-import {TOWARD} from '../constants/toward';
-import {setInterval, clearInterval} from 'timers';
-import {BlocksType, EntitiesType} from '../types';
-import Torch from '../models/block/light/Torch';
-import Point from '../basics/Point';
-import Cow from '../models/entity/mobs/Cow';
-
-export const TimeoutHelper = (() => {
-  let counter = 0;
-  const timeouts = new Map();
-
-  return {
-    setInterval(
-      callback: (...args: any[]) => void,
-      ms: number,
-      ...args: any[]
-    ): number {
-      const timer = setInterval(callback, ms, ...args);
-      timeouts.set(++counter, timer);
-
-      return counter;
-    },
-    clearInterval(id: number) {
-      const timer = timeouts.get(id);
-      clearInterval(timer);
-
-      return timeouts.delete(id);
-    },
-  };
-})();
+import Floor from "../models/block/Floor";
+import Vector from "../basics/Vector";
+import Wall from "../models/block/structure/Wall";
+import Door from "../models/block/structure/Door";
+import TOWARD from "../constants/toward";
+import type { BlocksType } from "../types";
+import Torch from "../models/block/light/Torch";
+import Point from "../basics/Point";
 
 export function generateBlocks(width: number, height: number, size: number) {
   const blocks: BlocksType[] = [];
@@ -52,11 +25,11 @@ export function generateBlocks(width: number, height: number, size: number) {
         j === width - 1 ||
         j === 10
       ) {
-        structure = new Wall({x: j * size, y: i * size}, 3);
+        structure = new Wall({ x: j * size, y: i * size }, 3);
       }
       if (i === height - 10 && j === 10) {
         structure = new Door(
-          {x: j * size, y: i * size},
+          { x: j * size, y: i * size },
           Door.TYPE.STONE,
           TOWARD.EAST_WEST,
           false
@@ -74,14 +47,6 @@ export function generateBlocks(width: number, height: number, size: number) {
   blocks.push(new Torch(new Point(1100, 900)));
 
   return blocks;
-}
-
-export function generateEntities() {
-  const entites: EntitiesType[] = [];
-
-  entites.push(new Cow(new Point(500, 500)));
-
-  return entites;
 }
 
 export const direction2Vector = [

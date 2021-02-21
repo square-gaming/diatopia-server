@@ -1,6 +1,8 @@
-export enum FACING {
+const enum FACING {
   UP,
   RIGHT,
   DOWN,
   LEFT,
 }
+
+export default FACING;

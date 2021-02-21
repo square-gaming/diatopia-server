@@ -1,7 +1,6 @@
 class Time {
   static TICK_PERIOD = 33;
   static DAY_PERIOD = 24000;
-
   public lastTime: number;
   public dayTime: number;
 

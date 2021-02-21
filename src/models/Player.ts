@@ -1,12 +1,12 @@
-import Entity from './entity/Entity';
-import Point from '../basics/Point';
-import {AbilitiesInfo, Coordinate} from '../types/models';
-import {Dimension, Direction} from '../types';
-import {DIMENSION} from '../constants/dimension';
-import {DIRECTION} from '../constants/direction';
-import {FACING} from '../constants/facing';
-import EVENT from '../constants/event';
-import Vector from '../basics/Vector';
+import Entity from "./entity/Entity";
+import Point from "../basics/Point";
+import type { AbilitiesInfo, Coordinate } from "../types/models";
+import type { Dimension, Direction } from "../types";
+import DIMENSION from "../constants/dimension";
+import DIRECTION from "../constants/direction";
+import FACING from "../constants/facing";
+import EVENT from "../constants/event";
+import Vector from "../basics/Vector";
 
 class Player extends Entity {
   spawnPos: Point;
@@ -20,7 +20,7 @@ class Player extends Entity {
     spawnPos: Point | Coordinate,
     dimension: Dimension = DIMENSION.SURFACE
   ) {
-    super('Player', pos, new Vector(100, 100), id, nickName);
+    super("Player", pos, new Vector(100, 100), id, nickName);
     this.spawnPos = spawnPos instanceof Point ? spawnPos : new Point(spawnPos);
     this.dimension = dimension;
     this.abilities = {
@@ -31,7 +31,7 @@ class Player extends Entity {
   protected update() {
     super.update();
     if (!this.motion.isZero()) {
-      this._move(this.motion);
+      this.move(this.motion);
     }
   }
 
@@ -70,7 +70,7 @@ class Player extends Entity {
         this.facing = FACING.RIGHT;
         break;
       default:
-        console.error('Unexpected move direction.');
+        console.error("Unexpected move direction.");
         break;
     }
   }
@@ -79,7 +79,7 @@ class Player extends Entity {
     this.on(EVENT.PLAYER.MOVE, listener);
   }
 
-  private _move(vec: Vector) {
+  private move(vec: Vector) {
     this.pos.add(vec);
     this.emit(EVENT.PLAYER.MOVE, this);
   }

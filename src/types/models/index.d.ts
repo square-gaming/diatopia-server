@@ -1,21 +1,11 @@
-import Point from '../../basics/Point';
-import Vector from '../../basics/Vector';
-import Floor from '../../models/block/Floor';
-import {
-  StructuresType,
-  Toward,
-  Facing,
-  Dimension,
-  Direction,
-  BlocksType,
-} from '..';
-import Player from '../../models/Player';
-import Door from '../../models/block/structure/Door';
-import Surface from '../../models/level/Surface';
-import Underground from '../../models/level/Underground';
-import Time from '../../models/Time';
-import Block from '../../core/Block';
-import Structure from '../../models/block/structure/Structure';
+import Point from "../../basics/Point";
+import Vector from "../../basics/Vector";
+import { Toward, Facing, Dimension, BlocksType } from "..";
+import Player from "../../models/Player";
+import Door from "../../models/block/structure/Door";
+import Surface from "../../models/level/Surface";
+import Underground from "../../models/level/Underground";
+import Time from "../../models/Time";
 
 export interface Coordinate {
   x: number;

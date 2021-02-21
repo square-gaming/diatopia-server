@@ -1,7 +1,7 @@
-import ACTION_TYPE from './actionType';
-import Player from '../models/Player';
-import {StructuresType} from '../types';
-import Mob from '../models/entity/mobs/Mob';
+import ACTION_TYPE from "./actionType";
+import Player from "../models/Player";
+import type { StructuresType } from "../types";
+import Mob from "../models/entity/mobs/Mob";
 
 const action = {
   level: {

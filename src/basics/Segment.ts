@@ -1,4 +1,4 @@
-import Point from './Point';
+import Point from "./Point";
 
 class Segment {
   start: Point;
@@ -12,15 +12,15 @@ class Segment {
         this.start = startOrValue;
         this.end = end;
       } else {
-        throw Error('Unexpected type of argument');
+        throw Error("Unexpected type of argument");
       }
+    } else if (Array.isArray(startOrValue) && startOrValue.length === 2) {
+      const [a, b] = startOrValue;
+
+      this.start = a;
+      this.end = b;
     } else {
-      if (Array.isArray(startOrValue) && startOrValue.length === 2) {
-        this.start = startOrValue[0];
-        this.end = startOrValue[1];
-      } else {
-        throw Error('Unexpected type of argument');
-      }
+      throw Error("Unexpected type of argument");
     }
   }
 }

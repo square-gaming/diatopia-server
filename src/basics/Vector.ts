@@ -52,75 +52,83 @@ class Vector {
   }
 
   set(v: Vector): Vector;
+
   set(x: number, y: number): Vector;
+
   set(vOrX: Vector | number, y?: number) {
     if (vOrX instanceof Vector) {
       this.x = vOrX.x;
       this.y = vOrX.y;
 
       return this;
-    } else if (typeof vOrX === 'number' && typeof y === 'number') {
+    }
+    if (typeof vOrX === "number" && typeof y === "number") {
       this.x = vOrX;
       this.y = y;
 
       return this;
-    } else {
-      throw Error('Unexpected argument type');
     }
+    throw Error("Unexpected argument type");
   }
 
   add(v: Vector): Vector;
+
   add(x: number, y: number): Vector;
+
   add(vOrX: Vector | number, y?: number) {
     if (vOrX instanceof Vector) {
       this.x += vOrX.x;
       this.y += vOrX.y;
 
       return this;
-    } else if (typeof vOrX === 'number' && typeof y === 'number') {
+    }
+    if (typeof vOrX === "number" && typeof y === "number") {
       this.x += vOrX;
       this.y += y;
 
       return this;
-    } else {
-      throw Error('Unexpected argument type');
     }
+    throw Error("Unexpected argument type");
   }
 
   multiply(v: Vector): Vector;
+
   multiply(x: number): Vector;
+
   multiply(vOrX: Vector | number) {
     if (vOrX instanceof Vector) {
-      this.x = this.x * vOrX.x;
+      this.x *= vOrX.x;
       this.y = this.x * vOrX.y;
 
       return this;
-    } else if (typeof vOrX === 'number') {
-      this.x = this.x * vOrX;
-      this.y = this.y * vOrX;
+    }
+    if (typeof vOrX === "number") {
+      this.x *= vOrX;
+      this.y *= vOrX;
 
       return this;
-    } else {
-      throw Error('Unexpected argument type');
     }
+    throw Error("Unexpected argument type");
   }
 
   divide(v: Vector): Vector;
+
   divide(x: number): Vector;
+
   divide(vOrX: Vector | number) {
     if (vOrX instanceof Vector) {
-      this.x = this.x / vOrX.x;
+      this.x /= vOrX.x;
       this.y = this.x / vOrX.y;
 
       return this;
-    } else if (typeof vOrX === 'number') {
-      this.x = this.x / vOrX;
-      this.y = this.y / vOrX;
+    }
+    if (typeof vOrX === "number") {
+      this.x /= vOrX;
+      this.y /= vOrX;
 
       return this;
-    } else {
-      throw Error('Unexpected argument type');
     }
+    throw Error("Unexpected argument type");
   }
 
   copy(v: Vector) {

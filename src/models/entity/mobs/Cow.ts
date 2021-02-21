@@ -1,12 +1,12 @@
-import {wander} from '../../../algorithm/physics/steering';
-import {GLOBAL} from '../../../constants/global';
-import Point from '../../../basics/Point';
-import Vector from '../../../basics/Vector';
-import Mob from './Mob';
+import wander from "../../../algorithm/physics/steering/behaviors/wander";
+import GLOBAL from "../../../constants/global";
+import Point from "../../../basics/Point";
+import Vector from "../../../basics/Vector";
+import Mob from "./Mob";
 
 class Cow extends Mob {
   constructor(pos: Point) {
-    super('Cow', pos, 10, 10, []);
+    super("Cow", pos, 10, 10, []);
   }
 
   protected update() {

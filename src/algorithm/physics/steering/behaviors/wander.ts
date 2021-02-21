@@ -1,5 +1,5 @@
-import Vector from '../../../../basics/Vector';
-import {getRandom} from '../../../../utils';
+import Vector from "../../../../basics/Vector";
+import { getRandom } from "../../../../utils";
 
 interface Options {
   circleRadius?: number;

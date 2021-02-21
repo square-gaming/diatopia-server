@@ -1,7 +1,7 @@
-import {EventEmitter} from 'events';
-import {setInterval} from 'timers';
-import EVENT from '../constants/event';
-import {GLOBAL} from '../constants/global';
+import { EventEmitter } from "events";
+import { setInterval } from "timers";
+import EVENT from "../constants/event";
+import GLOBAL from "../constants/global";
 
 abstract class Element extends EventEmitter {
   protected lastTime: number;

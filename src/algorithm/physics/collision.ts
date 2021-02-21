@@ -1,5 +1,5 @@
-import Point from '../../basics/Point';
-import Block from '../../core/Block';
+import Point from "../../basics/Point";
+import Block from "../../core/Block";
 
 export function isCollision(
   source: Block,
@@ -51,8 +51,8 @@ export function collisionResponse(source: Block, target: Block) {
 }
 
 export function collisionTest(source: Block, groups: Block[][]) {
-  groups.forEach(group => {
-    group.forEach(target => {
+  groups.forEach((group) => {
+    group.forEach((target) => {
       collisionResponse(source, target);
     });
   });

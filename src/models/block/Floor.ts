@@ -1,6 +1,6 @@
-import Block from '../../core/Block';
-import Point from '../../basics/Point';
-import {Coordinate} from '../../types/models';
+import Block from "../../core/Block";
+import Point from "../../basics/Point";
+import type { Coordinate } from "../../types/models";
 
 class Floor extends Block {
   static TYPES = {
@@ -37,7 +37,7 @@ class Floor extends Block {
   pattern: number;
 
   constructor(type: number, pos: Point | Coordinate) {
-    super('Floor', 0, pos);
+    super("Floor", 0, pos);
     this.type = type;
     this.pattern = 0;
     this.pos = pos instanceof Point ? pos : new Point(pos);

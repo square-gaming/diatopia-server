@@ -1,5 +1,5 @@
-import {Coordinate} from '../types/models';
-import Vector from './Vector';
+import type { Coordinate } from "../types/models";
+import Vector from "./Vector";
 
 class Point {
   static isEqual(a: Point, b: Point): boolean {
@@ -13,19 +13,17 @@ class Point {
   constructor(x: number, y: number);
   constructor(xOrValue: number | Coordinate, y?: number) {
     if (y === undefined) {
-      if (typeof xOrValue !== 'number') {
+      if (typeof xOrValue !== "number") {
         this.x = xOrValue.x;
         this.y = xOrValue.y;
       } else {
-        throw Error('Unexpected type of argument');
+        throw Error("Unexpected type of argument");
       }
+    } else if (typeof xOrValue === "number" && typeof y === "number") {
+      this.x = xOrValue;
+      this.y = y;
     } else {
-      if (typeof xOrValue === 'number' && typeof y === 'number') {
-        this.x = xOrValue;
-        this.y = y;
-      } else {
-        throw Error('Unexpected type of argument');
-      }
+      throw Error("Unexpected type of argument");
     }
   }
 

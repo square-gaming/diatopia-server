@@ -1,19 +1,39 @@
-class Quadtree<T extends Quadtree.Rect> {
-  public static readonly NODE_ELEMENTS_CAPACITY = 4;
-  public static readonly FIRST_QUADRANT: Quadtree.Quadrant = 0;
-  public static readonly SECOND_QUADRANT: Quadtree.Quadrant = 1;
-  public static readonly THIRD_QUADRANT: Quadtree.Quadrant = 2;
-  public static readonly FOURTH_QUADRANT: Quadtree.Quadrant = 3;
+interface Point {
+  x: number;
+  y: number;
+}
+interface Plane {
+  width: number;
+  height: number;
+}
+type Quadrant = 0 | 1 | 2 | 3;
+type Rect = Point & Plane;
 
-  bounds: Quadtree.Rect;
+class Quadtree<T extends Rect> {
+  public static readonly NODE_ELEMENTS_CAPACITY = 4;
+
+  public static readonly FIRST_QUADRANT: Quadrant = 0;
+
+  public static readonly SECOND_QUADRANT: Quadrant = 1;
+
+  public static readonly THIRD_QUADRANT: Quadrant = 2;
+
+  public static readonly FOURTH_QUADRANT: Quadrant = 3;
+
+  bounds: Rect;
+
   maxCapacity: number;
+
   depth: number;
+
   container: T[];
+
   childNodes: never[] | [Quadtree<T>, Quadtree<T>, Quadtree<T>, Quadtree<T>];
+
   parentNode: Quadtree<T> | null;
 
   constructor(
-    bounds: Quadtree.Rect,
+    bounds: Rect,
     maxCapacity = 10,
     depth = 0,
     parentNode: Quadtree<T> | null = null
@@ -27,11 +47,11 @@ class Quadtree<T extends Quadtree.Rect> {
   }
 
   public get isRoot(): boolean {
-    return this.parentNode ? false : true;
+    return !this.parentNode;
   }
 
   public get isLeaf(): boolean {
-    return this.childNodes.length ? false : true;
+    return !this.childNodes.length;
   }
 
   public insert(value: T): void {
@@ -46,9 +66,9 @@ class Quadtree<T extends Quadtree.Rect> {
         }
 
         for (let i = 0; i < this.container.length; i++) {
-          const value = this.container[i];
+          const val = this.container[i];
 
-          this.childNodes[this.getQuadrant(value)].insert(value);
+          this.childNodes[this.getQuadrant(val)].insert(val);
         }
 
         this.container = [];
@@ -56,9 +76,9 @@ class Quadtree<T extends Quadtree.Rect> {
     }
   }
 
-  public find<K extends Quadtree.Point>(value: K) {
+  public find<K extends Point>(value: K) {
     const found = this.container.find(
-      item => item.x === value.x && item.y === value.y
+      (item) => item.x === value.x && item.y === value.y
     );
 
     if (!found) {
@@ -74,24 +94,22 @@ class Quadtree<T extends Quadtree.Rect> {
     return undefined;
   }
 
-  public delete<K extends Quadtree.Point>(value: K) {
+  public delete<K extends Point>(value: K) {
     const found = this.container.findIndex(
-      item => item.x === value.x && item.y === value.y
+      (item) => item.x === value.x && item.y === value.y
     );
 
     if (found) {
       this.container.splice(found, 1);
-    } else {
-      if (!this.isLeaf) {
-        for (let i = 0; i < Quadtree.FOURTH_QUADRANT; i++) {
-          this.childNodes[i].delete(value);
-        }
+    } else if (!this.isLeaf) {
+      for (let i = 0; i < Quadtree.FOURTH_QUADRANT; i++) {
+        this.childNodes[i].delete(value);
       }
     }
   }
 
   public enumerate() {
-    let container = this.container;
+    let { container } = this;
 
     if (!this.isLeaf) {
       for (let i = 0; i < Quadtree.FOURTH_QUADRANT; i++) {
@@ -103,7 +121,7 @@ class Quadtree<T extends Quadtree.Rect> {
   }
 
   public retrieve(value: T): T[] {
-    let container = this.container;
+    let { container } = this;
 
     if (!this.isLeaf) {
       container = container.concat(
@@ -111,7 +129,7 @@ class Quadtree<T extends Quadtree.Rect> {
       );
     }
 
-    container = container.filter((value, i) => container.indexOf(value) >= i);
+    container = container.filter((val, i) => container.indexOf(val) >= i);
 
     return container;
   }
@@ -126,7 +144,7 @@ class Quadtree<T extends Quadtree.Rect> {
     }
   }
 
-  private getQuadrant(value: T): Quadtree.Quadrant {
+  private getQuadrant(value: T): Quadrant {
     const verticalMidpoint = this.bounds.x + this.bounds.width / 2;
     const horizontalMidpoint = this.bounds.y + this.bounds.height / 2;
 
@@ -137,21 +155,22 @@ class Quadtree<T extends Quadtree.Rect> {
 
     if (isUpperHalf && isRightHalf) {
       return Quadtree.FIRST_QUADRANT;
-    } else if (isUpperHalf && isLeftHalf) {
-      return Quadtree.SECOND_QUADRANT;
-    } else if (isLowerHalf && isLeftHalf) {
-      return Quadtree.THIRD_QUADRANT;
-    } else {
-      return Quadtree.FOURTH_QUADRANT;
     }
+    if (isUpperHalf && isLeftHalf) {
+      return Quadtree.SECOND_QUADRANT;
+    }
+    if (isLowerHalf && isLeftHalf) {
+      return Quadtree.THIRD_QUADRANT;
+    }
+    return Quadtree.FOURTH_QUADRANT;
   }
 
   private subdivide(): void {
     const depth = this.depth + 1;
     const subWidth = this.bounds.width / 2;
     const subHeight = this.bounds.height / 2;
-    const x = this.bounds.x;
-    const y = this.bounds.y;
+    const { x } = this.bounds;
+    const { y } = this.bounds;
 
     this.childNodes = [
       new Quadtree(
@@ -201,3 +220,5 @@ class Quadtree<T extends Quadtree.Rect> {
     ];
   }
 }
+
+export default Quadtree;

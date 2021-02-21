@@ -1,6 +1,6 @@
-import Structure from './Structure';
-import {Coordinate, WallInterface} from '../../../types/models';
-import Point from '../../../basics/Point';
+import Structure from "./Structure";
+import type { Coordinate, WallInterface } from "../../../types/models";
+import Point from "../../../basics/Point";
 
 class Wall extends Structure implements WallInterface {
   static PATTERNS = {
@@ -20,7 +20,7 @@ class Wall extends Structure implements WallInterface {
   };
 
   constructor(pos: Point | Coordinate, type: number) {
-    super('Wall', pos, type, true);
+    super("Wall", pos, type, true);
   }
 }
 

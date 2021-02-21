@@ -1,8 +1,8 @@
-import Point from '../basics/Point';
-import {GLOBAL} from '../constants/global';
-import {Coordinate} from '../types/models';
-import Element from './Element';
-import Vector from '../basics/Vector';
+import Point from "../basics/Point";
+import GLOBAL from "../constants/global";
+import type { Coordinate } from "../types/models";
+import Element from "./Element";
+import Vector from "../basics/Vector";
 
 abstract class Block extends Element {
   name: string;

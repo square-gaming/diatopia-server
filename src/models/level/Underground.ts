@@ -1,8 +1,8 @@
-import Point from '../../basics/Point';
-import Vector from '../../basics/Vector';
-import {UndergroundInterface} from '../../types/models';
-import Time from '../Time';
-import Level from './Level';
+import Point from "../../basics/Point";
+import Vector from "../../basics/Vector";
+import type { UndergroundInterface } from "../../types/models";
+import Time from "../Time";
+import Level from "./Level";
 
 class Underground extends Level implements UndergroundInterface {
   constructor(time: Time) {

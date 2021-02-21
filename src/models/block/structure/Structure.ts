@@ -1,9 +1,9 @@
-import {GLOBAL} from '../../../constants/global';
-import Block from '../../../core/Block';
-import Point from '../../../basics/Point';
-import Segment from '../../../basics/Segment';
-import Vector from '../../../basics/Vector';
-import {StructureInterface, Coordinate} from '../../../types/models';
+import GLOBAL from "../../../constants/global";
+import Block from "../../../core/Block";
+import Point from "../../../basics/Point";
+import Segment from "../../../basics/Segment";
+import Vector from "../../../basics/Vector";
+import type { StructureInterface, Coordinate } from "../../../types/models";
 
 abstract class Structure extends Block implements StructureInterface {
   pos: Point;

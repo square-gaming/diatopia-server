@@ -1,4 +1,4 @@
-import Vector from './Vector';
+import Vector from "./Vector";
 
 class Ray {
   origin: Vector;
@@ -9,7 +9,7 @@ class Ray {
     if (direction.length === 1) {
       this.direction = direction;
     } else {
-      throw Error('Direction Vector should be normalized.');
+      throw Error("Direction Vector should be normalized.");
     }
   }
 
