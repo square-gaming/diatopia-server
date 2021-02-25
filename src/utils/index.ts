@@ -50,14 +50,14 @@ export function generateBlocks(width: number, height: number, size: number) {
 }
 
 export const direction2Vector = [
-  Vector.up,
-  Vector.upRight,
   Vector.right,
-  Vector.downRight,
-  Vector.down,
-  Vector.downLeft,
-  Vector.left,
+  Vector.upRight,
+  Vector.up,
   Vector.upLeft,
+  Vector.left,
+  Vector.downLeft,
+  Vector.down,
+  Vector.downRight,
 ];
 
 export function getRandom(min: number, max: number, isMaxInclusive = true) {
