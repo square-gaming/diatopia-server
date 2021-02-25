@@ -12,6 +12,7 @@ export interface Coordinate {
   y: number;
 }
 export interface AbilitiesInfo {
+  acceleration: number;
   speed: number;
 }
 export interface WorldInterface {
@@ -43,7 +44,6 @@ export interface EntityInterface {
   height: number;
   pos: Point;
   facing: Facing;
-  motion: Vector;
   isConcrete: boolean;
   borderPos: [Point, Point];
   adjacentPos: Point[];

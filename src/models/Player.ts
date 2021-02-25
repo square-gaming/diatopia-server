@@ -1,10 +1,8 @@
 import Entity from "./entity/Entity";
 import Point from "../basics/Point";
 import type { AbilitiesInfo, Coordinate } from "../types/models";
-import type { Dimension, Direction } from "../types";
+import type { Dimension } from "../types";
 import DIMENSION from "../constants/dimension";
-import DIRECTION from "../constants/direction";
-import FACING from "../constants/facing";
 import EVENT from "../constants/event";
 import Vector from "../basics/Vector";
 
@@ -12,6 +10,7 @@ class Player extends Entity {
   spawnPos: Point;
   dimension: Dimension;
   abilities: AbilitiesInfo;
+  isMotion: boolean;
 
   constructor(
     id: string,
@@ -24,54 +23,40 @@ class Player extends Entity {
     this.spawnPos = spawnPos instanceof Point ? spawnPos : new Point(spawnPos);
     this.dimension = dimension;
     this.abilities = {
-      speed: 8,
+      acceleration: 2,
+      speed: 16,
     };
+    this.isMotion = false;
   }
 
   protected update() {
     super.update();
-    if (!this.motion.isZero()) {
-      this.move(this.motion);
+    if (this.isMotion) {
+      this.accelerate();
+    } else {
+      this.brake();
+    }
+    if (this.speed > 0) {
+      const step = new Vector(Math.cos(this.rotation), -Math.sin(this.rotation))
+        .multiply(this.speed)
+        .round();
+
+      this.move(step);
     }
   }
 
-  public accelerate(dir: Direction, isMotion: boolean) {
-    switch (dir) {
-      case DIRECTION.NORTH:
-        this.motion.add(
-          isMotion
-            ? Vector.up.multiply(this.abilities.speed)
-            : Vector.down.multiply(this.abilities.speed)
-        );
-        this.facing = FACING.UP;
-        break;
-      case DIRECTION.SOUTH:
-        this.motion.add(
-          isMotion
-            ? Vector.down.multiply(this.abilities.speed)
-            : Vector.up.multiply(this.abilities.speed)
-        );
-        this.facing = FACING.DOWN;
-        break;
-      case DIRECTION.WEST:
-        this.motion.add(
-          isMotion
-            ? Vector.left.multiply(this.abilities.speed)
-            : Vector.right.multiply(this.abilities.speed)
-        );
-        this.facing = FACING.LEFT;
-        break;
-      case DIRECTION.EAST:
-        this.motion.add(
-          isMotion
-            ? Vector.right.multiply(this.abilities.speed)
-            : Vector.left.multiply(this.abilities.speed)
-        );
-        this.facing = FACING.RIGHT;
-        break;
-      default:
-        console.error("Unexpected move direction.");
-        break;
+  public brake() {
+    this.speed -= this.abilities.acceleration;
+    if (this.speed < 0) {
+      this.speed = 0;
+      this.isMotion = false;
+    }
+  }
+
+  public accelerate() {
+    this.speed += this.abilities.acceleration;
+    if (this.speed > this.abilities.speed) {
+      this.speed = this.abilities.speed;
     }
   }
 

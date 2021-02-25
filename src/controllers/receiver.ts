@@ -41,7 +41,8 @@ const MessageHandle: {
   [ACTION_TYPE.PLAYER.MOVE](uid: string, data: any, manager: Manager) {
     const source = manager.getPlayer(uid);
 
-    source.accelerate(data.payload.dir, data.payload.motion);
+    source.rotation = (data.payload.dir * Math.PI) / 4;
+    source.isMotion = data.payload.motion;
   },
   [ACTION_TYPE.PLAYER.INTERACT](uid: string, data: any, manager: Manager) {
     // Search the structure in front first -- Otherwise adjacent structures.

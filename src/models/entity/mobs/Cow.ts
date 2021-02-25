@@ -18,12 +18,17 @@ class Cow extends Mob {
   }
 
   private wander() {
-    this.motion = wander(this.motion).divide(this.mass);
+    const velocity = new Vector(
+      Math.cos(this.rotation),
+      -Math.sin(this.rotation)
+    ).multiply(this.speed);
+    const step = wander(velocity).divide(this.mass).round();
 
-    if (!this.motion.isZero()) {
-      this.move(
-        new Vector(Math.round(this.motion.x), Math.round(this.motion.y))
-      );
+    this.rotation = Math.atan2(-step.y, step.x);
+    this.speed = step.length;
+
+    if (this.speed > 0) {
+      this.move(step);
     }
   }
 }

@@ -10,8 +10,8 @@ import GLOBAL from "../../constants/global";
 abstract class Entity extends Block implements EntityInterface {
   id: string;
   nickName: string;
-  facing: Facing;
-  motion: Vector;
+  rotation: number;
+  speed: number;
 
   constructor(
     name: string,
@@ -19,15 +19,55 @@ abstract class Entity extends Block implements EntityInterface {
     aspect: Vector = new Vector(GLOBAL.UNIT_LENGTH, GLOBAL.UNIT_LENGTH),
     id: string = nanoid(),
     nickName = "anonymous",
-    facing: Facing = FACING.DOWN,
-    motion: Vector = new Vector(),
-    isConcrete = true
+    isConcrete = true,
+    rotation: number = 0,
+    speed: number = 0
   ) {
     super(name, 1, pos, aspect, isConcrete);
     this.id = id;
     this.nickName = nickName;
-    this.facing = facing;
-    this.motion = motion;
+    this.rotation = rotation;
+    this.speed = speed;
+  }
+
+  public get facing(): Facing {
+    const rotation = this.rotation % (2 * Math.PI);
+
+    if (rotation >= 0 && rotation <= 2 * Math.PI) {
+      if (this.rotation >= Math.PI / 4 && this.rotation < (Math.PI * 3) / 4) {
+        return FACING.UP;
+      } else if (
+        this.rotation >= (Math.PI * 3) / 4 &&
+        this.rotation < (Math.PI * 5) / 4
+      ) {
+        return FACING.LEFT;
+      } else if (
+        this.rotation >= (Math.PI * 5) / 4 &&
+        this.rotation < (Math.PI * 7) / 4
+      ) {
+        return FACING.DOWN;
+      } else {
+        return FACING.RIGHT;
+      }
+    } else if (rotation < 0 && rotation >= -2 * Math.PI) {
+      if (this.rotation <= -Math.PI / 4 && this.rotation > (-Math.PI * 3) / 4) {
+        return FACING.DOWN;
+      } else if (
+        this.rotation <= (-Math.PI * 3) / 4 &&
+        this.rotation > (-Math.PI * 5) / 4
+      ) {
+        return FACING.LEFT;
+      } else if (
+        this.rotation <= (-Math.PI * 5) / 4 &&
+        this.rotation > (-Math.PI * 7) / 4
+      ) {
+        return FACING.UP;
+      } else {
+        return FACING.RIGHT;
+      }
+    } else {
+      throw new RangeError();
+    }
   }
 
   public get facingPos(): Point {
