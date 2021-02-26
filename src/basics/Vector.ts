@@ -91,6 +91,26 @@ class Vector {
     throw Error("Unexpected argument type");
   }
 
+  subtract(v: Vector): Vector;
+
+  subtract(x: number, y: number): Vector;
+
+  subtract(vOrX: Vector | number, y?: number) {
+    if (vOrX instanceof Vector) {
+      this.x -= vOrX.x;
+      this.y -= vOrX.y;
+
+      return this;
+    }
+    if (typeof vOrX === "number" && typeof y === "number") {
+      this.x -= vOrX;
+      this.y -= y;
+
+      return this;
+    }
+    throw Error("Unexpected argument type");
+  }
+
   multiply(v: Vector): Vector;
 
   multiply(x: number): Vector;
