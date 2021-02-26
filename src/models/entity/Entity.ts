@@ -11,7 +11,7 @@ abstract class Entity extends Block implements EntityInterface {
   id: string;
   nickName: string;
   rotation: number;
-  speed: number;
+  motion: Vector;
 
   constructor(
     name: string,
@@ -21,13 +21,13 @@ abstract class Entity extends Block implements EntityInterface {
     nickName = "anonymous",
     isConcrete = true,
     rotation: number = 0,
-    speed: number = 0
+    motion: Vector = new Vector()
   ) {
     super(name, 1, pos, aspect, isConcrete);
     this.id = id;
     this.nickName = nickName;
     this.rotation = rotation;
-    this.speed = speed;
+    this.motion = motion;
   }
 
   public get facing(): Facing {

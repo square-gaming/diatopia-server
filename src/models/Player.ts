@@ -33,30 +33,45 @@ class Player extends Entity {
     super.update();
     if (this.isMotion) {
       this.accelerate();
-    } else {
+    } else if (!this.motion.isZero()) {
       this.brake();
     }
-    if (this.speed > 0) {
-      const step = new Vector(Math.cos(this.rotation), -Math.sin(this.rotation))
-        .multiply(this.speed)
-        .round();
-
-      this.move(step);
+    if (!this.motion.isZero()) {
+      this.move(this.motion.round());
     }
   }
 
   public brake() {
-    this.speed -= this.abilities.acceleration;
-    if (this.speed < 0) {
-      this.speed = 0;
-      this.isMotion = false;
+    const unit = new Vector(Math.cos(this.rotation), -Math.sin(this.rotation));
+
+    if (
+      Vector.isEqual(
+        this.motion
+          .clone()
+          .subtract(unit.clone().multiply(this.abilities.acceleration))
+          .normalize()
+          .round(),
+        unit.clone().round()
+      )
+    ) {
+      this.motion.subtract(unit.multiply(this.abilities.acceleration));
+    } else {
+      this.motion = new Vector();
     }
   }
 
   public accelerate() {
-    this.speed += this.abilities.acceleration;
-    if (this.speed > this.abilities.speed) {
-      this.speed = this.abilities.speed;
+    const unit = new Vector(Math.cos(this.rotation), -Math.sin(this.rotation));
+
+    if (
+      this.motion
+        .clone()
+        .add(unit.clone().multiply(this.abilities.acceleration)).length >
+      this.abilities.speed
+    ) {
+      this.motion = unit.multiply(this.abilities.speed);
+    } else {
+      this.motion.add(unit.clone().multiply(this.abilities.acceleration));
     }
   }
 
