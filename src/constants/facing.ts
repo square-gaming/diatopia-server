@@ -1,4 +1,4 @@
-const enum FACING {
+enum FACING {
   UP,
   RIGHT,
   DOWN,
