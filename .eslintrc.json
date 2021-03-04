@@ -32,6 +32,9 @@
             }
         }
     },
+    "ignorePatterns": [
+        "src/*.html"
+    ],
     "rules": {
         "prettier/prettier": ["error", { "endOfLine": "auto" }],
         "no-dupe-class-members": "off",
