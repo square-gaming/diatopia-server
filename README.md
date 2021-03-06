@@ -43,9 +43,9 @@ WSS_PATH=URL_PATH
 
 ## Running the npm scripts
 
-Here are some npm scripts about webpack that I had set for project.
+Here are some npm scripts that I had set for project.
 
-### Using dev-server
+### Using dev-server to develop
 
 The nodemon and ts-node module provides you with a simple web server and the ability to use live reloading.
 
@@ -53,6 +53,18 @@ The nodemon and ts-node module provides you with a simple web server and the abi
 npm run dev
 ```
 
-## Authors
+### Using ESLint to lint
 
-* **(FuChuan Yu)** - [Portfolio](https://luffy84217-portfolio.herokuapp.com)
+ESLint statically analyzes code to quickly find problems and makes code follow the Google style convention.
+
+```
+npm run lint
+```
+
+### Using Babel to build
+
+Babel is a JavaScript compiler. Using it to provides us a Javascript build to run in Node.js
+
+```
+npm run build
+```
