@@ -11,6 +11,7 @@ import Point from "../basics/Point";
 import Manager from "../Manager";
 import Torch from "../models/block/light/Torch";
 import Cow from "../models/entity/mobs/Cow";
+import Sheep from "../models/entity/mobs/Sheep";
 
 export type Dimension = 0 | 1;
 export type LightLevel = 0;
@@ -20,7 +21,7 @@ export type Toward = 0 | 1;
 export type Level = Surface | Underground;
 export type StructuresType = Wall | Door;
 export type BlocksType = Floor | Wall | Door | Torch;
-export type EntitiesType = Cow;
+export type EntitiesType = Cow | Sheep;
 
 export interface Action {
   type: string;
