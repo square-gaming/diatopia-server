@@ -11,8 +11,8 @@ import {
 import Mob from "../entity/mobs/Mob";
 import Cow from "../entity/mobs/Cow";
 import Sheep from "../entity/mobs/Sheep";
+import Goat from "../entity/mobs/Goat";
 import Time from "../Time";
-
 
 class Surface extends Level implements SurfaceInterface {
   constructor(time: Time) {
@@ -30,7 +30,12 @@ class Surface extends Level implements SurfaceInterface {
   protected create() {
     super.create();
 
-    const entites = [new Cow(new Point(500, 500)), new Sheep(new Point(500, 500))];
+    const entites = [
+      new Cow(new Point(500, 500)),
+      new Sheep(new Point(500, 500)),
+      new Goat(new Point(500, 500)),
+    ];
+
     entites.forEach((entity) => {
       entity.onMove((mob) => {
         this.emit(EVENT.SURFACE.MOB.MOVE, mob);
