@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Diatopia-server</title>
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+</head>
+<body style="background: white;">
+  <h1>Clients List</h1>
+  <ul id="clients-list"></ul>
+</body>
+<script>
+  window.ipc.receive("CLIENT_CONNECT", (evt, uid) => {
+    const li = document.createElement("li");
+
+    li.id = uid;
+    li.textContent = uid;
+
+    document.getElementById("clients-list").appendChild(li);
+  });
+  window.ipc.receive("CLIENT_DISCONNECT", (evt, uid) => {
+    const li = document.getElementById(uid);
+    
+    document.getElementById("clients-list").removeChild(li);
+  });
+</script>
+</html>
