@@ -6,6 +6,7 @@ import TOWARD from "../constants/toward";
 import type { BlocksType } from "../types";
 import Torch from "../models/block/light/Torch";
 import Point from "../basics/Point";
+import GLOBAL from "../constants/global";
 
 export function generateBlocks(width: number, height: number, size: number) {
   const blocks: BlocksType[] = [];
@@ -41,10 +42,10 @@ export function generateBlocks(width: number, height: number, size: number) {
       blocks.push(floor);
     }
   }
-  blocks.push(new Torch(new Point(1100, 1000)));
-  blocks.push(new Torch(new Point(1200, 1000)));
-  blocks.push(new Torch(new Point(1200, 900)));
-  blocks.push(new Torch(new Point(1100, 900)));
+  blocks.push(new Torch(new Point(11 * GLOBAL.UNIT_LENGTH, 10 * GLOBAL.UNIT_LENGTH)));
+  blocks.push(new Torch(new Point(12 * GLOBAL.UNIT_LENGTH, 10 * GLOBAL.UNIT_LENGTH)));
+  blocks.push(new Torch(new Point(12 * GLOBAL.UNIT_LENGTH, 9 * GLOBAL.UNIT_LENGTH)));
+  blocks.push(new Torch(new Point(11 * GLOBAL.UNIT_LENGTH, 9 * GLOBAL.UNIT_LENGTH)));
 
   return blocks;
 }

@@ -5,6 +5,7 @@ import type { Dimension } from "../types";
 import DIMENSION from "../constants/dimension";
 import EVENT from "../constants/event";
 import Vector from "../basics/Vector";
+import GLOBAL from "../constants/global";
 
 class Player extends Entity {
   spawnPos: Point;
@@ -19,7 +20,7 @@ class Player extends Entity {
     spawnPos: Point | Coordinate,
     dimension: Dimension = DIMENSION.SURFACE
   ) {
-    super("Player", pos, new Vector(100, 100), id, nickName);
+    super("Player", pos, new Vector(GLOBAL.UNIT_LENGTH, GLOBAL.UNIT_LENGTH), id, nickName);
     this.spawnPos = spawnPos instanceof Point ? spawnPos : new Point(spawnPos);
     this.dimension = dimension;
     this.abilities = {

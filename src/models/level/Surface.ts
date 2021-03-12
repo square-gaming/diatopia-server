@@ -31,9 +31,9 @@ class Surface extends Level implements SurfaceInterface {
     super.create();
 
     const entites = [
-      new Cow(new Point(500, 500)),
-      new Sheep(new Point(500, 500)),
-      new Goat(new Point(500, 500)),
+      new Cow(new Point(5 * GLOBAL.UNIT_LENGTH, 5 * GLOBAL.UNIT_LENGTH)),
+      new Sheep(new Point(6 * GLOBAL.UNIT_LENGTH, 6 * GLOBAL.UNIT_LENGTH)),
+      new Goat(new Point(7 * GLOBAL.UNIT_LENGTH, 7 * GLOBAL.UNIT_LENGTH)),
     ];
 
     entites.forEach((entity) => {
@@ -47,7 +47,7 @@ class Surface extends Level implements SurfaceInterface {
       configureRule
     );
     this.entities = entites;
-    this.spawnPos = new Point(200, 200);
+    this.spawnPos = new Point(2 * GLOBAL.UNIT_LENGTH, 2 * GLOBAL.UNIT_LENGTH);
   }
 
   protected update() {
