@@ -24,7 +24,7 @@ class Player extends Entity {
     this.spawnPos = spawnPos instanceof Point ? spawnPos : new Point(spawnPos);
     this.dimension = dimension;
     this.abilities = {
-      acceleration: 2,
+      acceleration: 4,
       speed: 16,
     };
     this.isMotion = false;
@@ -43,21 +43,25 @@ class Player extends Entity {
   }
 
   public brake() {
-    const unit = new Vector(Math.cos(this.rotation), -Math.sin(this.rotation));
+    const vec = this.motion.clone().normalize().multiply(this.abilities.acceleration);
 
     if (
       Vector.isEqual(
         this.motion
           .clone()
-          .subtract(unit.clone().multiply(this.abilities.acceleration))
+          .subtract(vec)
           .normalize()
           .round(),
-        unit.clone().round()
+        this.motion
+          .clone()
+          .normalize()
+          .round()
       )
     ) {
-      this.motion.subtract(unit.multiply(this.abilities.acceleration));
+      this.motion.subtract(vec);
     } else {
       this.motion = new Vector();
+      this.move(new Vector());
     }
   }
 
