@@ -34,7 +34,9 @@ const action = {
       payload: {
         uid: player.id,
         pos: player.pos,
-        facing: player.facing,
+        motion: player.motion,
+        rotation: player.rotation,
+        isMotion: player.isMotion,
       },
     }),
     leave: (uid: string) => ({
