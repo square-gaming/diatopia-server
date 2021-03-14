@@ -42,10 +42,18 @@ export function generateBlocks(width: number, height: number, size: number) {
       blocks.push(floor);
     }
   }
-  blocks.push(new Torch(new Point(11 * GLOBAL.UNIT_LENGTH, 10 * GLOBAL.UNIT_LENGTH)));
-  blocks.push(new Torch(new Point(12 * GLOBAL.UNIT_LENGTH, 10 * GLOBAL.UNIT_LENGTH)));
-  blocks.push(new Torch(new Point(12 * GLOBAL.UNIT_LENGTH, 9 * GLOBAL.UNIT_LENGTH)));
-  blocks.push(new Torch(new Point(11 * GLOBAL.UNIT_LENGTH, 9 * GLOBAL.UNIT_LENGTH)));
+  blocks.push(
+    new Torch(new Point(11 * GLOBAL.UNIT_LENGTH, 10 * GLOBAL.UNIT_LENGTH))
+  );
+  blocks.push(
+    new Torch(new Point(12 * GLOBAL.UNIT_LENGTH, 10 * GLOBAL.UNIT_LENGTH))
+  );
+  blocks.push(
+    new Torch(new Point(12 * GLOBAL.UNIT_LENGTH, 9 * GLOBAL.UNIT_LENGTH))
+  );
+  blocks.push(
+    new Torch(new Point(11 * GLOBAL.UNIT_LENGTH, 9 * GLOBAL.UNIT_LENGTH))
+  );
 
   return blocks;
 }

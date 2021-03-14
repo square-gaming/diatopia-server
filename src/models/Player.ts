@@ -20,7 +20,13 @@ class Player extends Entity {
     spawnPos: Point | Coordinate,
     dimension: Dimension = DIMENSION.SURFACE
   ) {
-    super("Player", pos, new Vector(GLOBAL.UNIT_LENGTH, GLOBAL.UNIT_LENGTH), id, nickName);
+    super(
+      "Player",
+      pos,
+      new Vector(GLOBAL.UNIT_LENGTH, GLOBAL.UNIT_LENGTH),
+      id,
+      nickName
+    );
     this.spawnPos = spawnPos instanceof Point ? spawnPos : new Point(spawnPos);
     this.dimension = dimension;
     this.abilities = {
@@ -43,19 +49,15 @@ class Player extends Entity {
   }
 
   public brake() {
-    const vec = this.motion.clone().normalize().multiply(this.abilities.acceleration);
+    const vec = this.motion
+      .clone()
+      .normalize()
+      .multiply(this.abilities.acceleration);
 
     if (
       Vector.isEqual(
-        this.motion
-          .clone()
-          .subtract(vec)
-          .normalize()
-          .round(),
-        this.motion
-          .clone()
-          .normalize()
-          .round()
+        this.motion.clone().subtract(vec).normalize().round(),
+        this.motion.clone().normalize().round()
       )
     ) {
       this.motion.subtract(vec);
