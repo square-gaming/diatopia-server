@@ -12,6 +12,7 @@ class Player extends Entity {
   dimension: Dimension;
   abilities: AbilitiesInfo;
   isMotion: boolean;
+  health: number;
 
   constructor(
     id: string,
@@ -34,6 +35,7 @@ class Player extends Entity {
       speed: 16,
     };
     this.isMotion = false;
+    this.health = 9;
   }
 
   protected update() {
