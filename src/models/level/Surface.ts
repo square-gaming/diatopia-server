@@ -23,8 +23,17 @@ class Surface extends Level implements SurfaceInterface {
     this.on(EVENT.SURFACE.DAYLIGHT_CYCLE, listener);
   }
 
-  public onMobMove(listener: (mob: Mob) => void) {
+  public onMobMove(listener: (mob: Mob) => void) { 
     this.on(EVENT.SURFACE.MOB.MOVE, listener);
+  }
+
+  public updateTargetPos(pos: Point) {
+
+    //
+    this.entities.forEach((entity) => {
+      entity.updateTargetPos(pos)
+    });
+
   }
 
   protected create() {
@@ -32,8 +41,8 @@ class Surface extends Level implements SurfaceInterface {
 
     const entites = [
       new Cow(new Point(500, 500)),
-      new Sheep(new Point(500, 500)),
-      new Goat(new Point(500, 500)),
+      // new Sheep(new Point(500, 500)),
+      // new Goat(new Point(500, 500)),
     ];
 
     entites.forEach((entity) => {
@@ -53,6 +62,7 @@ class Surface extends Level implements SurfaceInterface {
   protected update() {
     super.update();
 
+    
     if (this.lastTime % 160 === 0) {
       this.updateLight();
     }

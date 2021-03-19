@@ -22,7 +22,7 @@ export type Toward = 0 | 1;
 export type Level = Surface | Underground;
 export type StructuresType = Wall | Door;
 export type BlocksType = Floor | Wall | Door | Torch;
-export type EntitiesType = Cow | Sheep | Goat;
+export type EntitiesType = Cow;
 
 export interface Action {
   type: string;
