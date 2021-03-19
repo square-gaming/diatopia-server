@@ -12,6 +12,7 @@ import Mob from "../entity/mobs/Mob";
 import Cow from "../entity/mobs/Cow";
 import Sheep from "../entity/mobs/Sheep";
 import Goat from "../entity/mobs/Goat";
+import Pig from "../entity/mobs/Pig";
 import Time from "../Time";
 
 class Surface extends Level implements SurfaceInterface {
@@ -34,6 +35,7 @@ class Surface extends Level implements SurfaceInterface {
       new Cow(new Point(5 * GLOBAL.UNIT_LENGTH, 5 * GLOBAL.UNIT_LENGTH)),
       new Sheep(new Point(6 * GLOBAL.UNIT_LENGTH, 6 * GLOBAL.UNIT_LENGTH)),
       new Goat(new Point(7 * GLOBAL.UNIT_LENGTH, 7 * GLOBAL.UNIT_LENGTH)),
+      new Pig(new Point(7 * GLOBAL.UNIT_LENGTH, 7 * GLOBAL.UNIT_LENGTH)),
     ];
 
     entites.forEach((entity) => {

@@ -13,6 +13,7 @@ import Torch from "../models/block/light/Torch";
 import Cow from "../models/entity/mobs/Cow";
 import Sheep from "../models/entity/mobs/Sheep";
 import Goat from "../models/entity/mobs/Goat";
+import Pig from "../models/entity/mobs/Pig";
 
 export type Dimension = 0 | 1;
 export type LightLevel = 0;
@@ -22,7 +23,7 @@ export type Toward = 0 | 1;
 export type Level = Surface | Underground;
 export type StructuresType = Wall | Door;
 export type BlocksType = Floor | Wall | Door | Torch;
-export type EntitiesType = Cow | Sheep | Goat;
+export type EntitiesType = Cow | Sheep | Goat | Pig;
 
 export interface Action {
   type: string;
