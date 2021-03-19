@@ -1,5 +1,6 @@
 import wander from "../../../algorithm/physics/steering/behaviors/wander";
 import seek from "../../../algorithm/physics/steering/behaviors/seek";
+import flee from "../../../algorithm/physics/steering/behaviors/flee";
 import GLOBAL from "../../../constants/global";
 import Point from "../../../basics/Point";
 import Mob from "./Mob";
@@ -17,8 +18,8 @@ class Cow extends Mob {
 
   protected update() {
     super.update();
-
-    if (this.lastTime % GLOBAL.TICK_PERIOD === 0) {
+ 
+    if (this.lastTime % (16) === 0) {
       if (this.targetPos) {
         this.seek();
       } else {

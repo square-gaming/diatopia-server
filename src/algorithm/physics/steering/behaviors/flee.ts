@@ -7,16 +7,16 @@ interface Options {
   circleDistance?: number;
 }
 
-const seek = (mobPos: Point, targetPos: Point, lastVelocity?: Vector) => {
+const flee = (mobPos: Point, targetPos: Point, lastVelocity?: Vector) => {
 
   const velocity = new Vector(targetPos.x - mobPos.x, 
     targetPos.y - mobPos.y)
 
-  var seekForce = velocity
+  var fleeForce = velocity
   if (lastVelocity) {
-    seekForce = lastVelocity.add(velocity)
+    fleeForce = lastVelocity.subtract(velocity)
   }
-  return seekForce;
+  return fleeForce;
 };
 
-export default seek;
+export default flee;
