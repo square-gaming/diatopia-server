@@ -1,6 +1,5 @@
 import Point from "../../../../basics/Point";
 import Vector from "../../../../basics/Vector";
-import { getRandom } from "../../../../utils";
 
 interface Options {
   circleRadius?: number;
@@ -8,13 +7,11 @@ interface Options {
 }
 
 const seek = (mobPos: Point, targetPos: Point, lastVelocity?: Vector) => {
+  const velocity = new Vector(targetPos.x - mobPos.x, targetPos.y - mobPos.y);
 
-  const velocity = new Vector(targetPos.x - mobPos.x, 
-    targetPos.y - mobPos.y)
-
-  var seekForce = velocity
+  var seekForce = velocity;
   if (lastVelocity) {
-    seekForce = lastVelocity.add(velocity)
+    seekForce = lastVelocity.add(velocity);
   }
   return seekForce;
 };

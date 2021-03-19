@@ -8,6 +8,9 @@ abstract class Mob extends Entity {
   health: number;
   attributes: any[];
 
+  targetPos?: Point;
+  targetMotion?: Vector;
+
   constructor(
     name: string,
     pos: Point,
@@ -19,6 +22,12 @@ abstract class Mob extends Entity {
     this.mass = mass;
     this.health = health;
     this.attributes = attributes;
+  }
+
+  public updateTarget(pos: Point, motion: Vector) {
+    this.targetPos = pos;
+    this.targetMotion = motion;
+    // console.log(`setPlayer: ${JSON.stringify(pos)} / ${JSON.stringify(motion)}`);
   }
 
   protected move(vec: Vector) {

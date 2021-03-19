@@ -2,6 +2,7 @@ import type { SurfaceInterface } from "../../types/models";
 import Level from "./Level";
 import { generateBlocks } from "../../utils";
 import Point from "../../basics/Point";
+import Vector from "../../basics/Vector";
 import GLOBAL from "../../constants/global";
 import EVENT from "../../constants/event";
 import {
@@ -23,17 +24,14 @@ class Surface extends Level implements SurfaceInterface {
     this.on(EVENT.SURFACE.DAYLIGHT_CYCLE, listener);
   }
 
-  public onMobMove(listener: (mob: Mob) => void) { 
+  public onMobMove(listener: (mob: Mob) => void) {
     this.on(EVENT.SURFACE.MOB.MOVE, listener);
   }
 
-  public updateTargetPos(pos: Point) {
-
-    //
+  public updateTarget(pos: Point, motion: Vector) {
     this.entities.forEach((entity) => {
-      entity.updateTargetPos(pos)
+      entity.updateTarget(pos, motion);
     });
-
   }
 
   protected create() {
@@ -41,8 +39,8 @@ class Surface extends Level implements SurfaceInterface {
 
     const entites = [
       new Cow(new Point(500, 500)),
-      // new Sheep(new Point(500, 500)),
-      // new Goat(new Point(500, 500)),
+      new Sheep(new Point(500, 500)),
+      new Goat(new Point(500, 500)),
     ];
 
     entites.forEach((entity) => {
@@ -62,7 +60,6 @@ class Surface extends Level implements SurfaceInterface {
   protected update() {
     super.update();
 
-    
     if (this.lastTime % 160 === 0) {
       this.updateLight();
     }

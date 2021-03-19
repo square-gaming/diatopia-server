@@ -37,7 +37,7 @@ class Player extends Entity {
       this.brake();
     }
     if (!this.motion.isZero()) {
-      this.move(this.motion.round());
+      this.move(this.motion.round()); 
     }
   }
 

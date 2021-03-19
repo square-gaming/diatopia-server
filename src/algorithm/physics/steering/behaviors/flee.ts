@@ -8,13 +8,11 @@ interface Options {
 }
 
 const flee = (mobPos: Point, targetPos: Point, lastVelocity?: Vector) => {
+  const velocity = new Vector(targetPos.x - mobPos.x, targetPos.y - mobPos.y);
 
-  const velocity = new Vector(targetPos.x - mobPos.x, 
-    targetPos.y - mobPos.y)
-
-  var fleeForce = velocity
+  var fleeForce = velocity;
   if (lastVelocity) {
-    fleeForce = lastVelocity.subtract(velocity)
+    fleeForce = lastVelocity.subtract(velocity);
   }
   return fleeForce;
 };

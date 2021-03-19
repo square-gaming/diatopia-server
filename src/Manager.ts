@@ -22,15 +22,12 @@ class Manager {
     this.world.surface.onDaylightCycle((lightLevel: number) => {
       this.actions.push(action.level.update.lightLevel(lightLevel));
     });
-    this.world.onPlayersMove((player: Player) => { 
-
-      this.world.surface.updateTargetPos(player.pos)
+    this.world.onPlayersMove((player: Player) => {
+      this.world.surface.updateTarget(player.pos, player.motion);
       this.actions.push(action.players.move(player));
     });
     this.world.surface.onMobMove((mob: Mob) => {
-
-
-      console.log(mob)
+      // console.log(mob)
       this.actions.push(action.entity.mob.move(mob));
     });
   }
