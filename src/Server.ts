@@ -57,7 +57,6 @@ class Server {
   private push() {
     const actions = this.manager.transfer();
     if (actions.length > 0) {
-      // console.log(actions)
       this.broadcast(actions);
     }
   }
