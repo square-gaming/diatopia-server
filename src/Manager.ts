@@ -27,7 +27,6 @@ class Manager {
       this.actions.push(action.players.move(player));
     });
     this.world.surface.onMobMove((mob: Mob) => {
-      // console.log(mob)
       this.actions.push(action.entity.mob.move(mob));
     });
   }
