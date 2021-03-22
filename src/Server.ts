@@ -88,7 +88,6 @@ class Server {
 
   private push() {
     const actions = this.manager.transfer();
-
     if (actions.length > 0) {
       this.broadcast(actions);
     }

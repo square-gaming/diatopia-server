@@ -2,6 +2,7 @@ import type { SurfaceInterface } from "../../types/models";
 import Level from "./Level";
 import { generateBlocks } from "../../utils";
 import Point from "../../basics/Point";
+import Vector from "../../basics/Vector";
 import GLOBAL from "../../constants/global";
 import EVENT from "../../constants/event";
 import {
@@ -26,6 +27,12 @@ class Surface extends Level implements SurfaceInterface {
 
   public onMobMove(listener: (mob: Mob) => void) {
     this.on(EVENT.SURFACE.MOB.MOVE, listener);
+  }
+
+  public updateTarget(pos: Point, motion: Vector) {
+    this.entities.forEach((entity) => {
+      entity.updateTarget(pos, motion);
+    });
   }
 
   protected create() {

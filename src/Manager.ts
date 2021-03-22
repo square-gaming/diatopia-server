@@ -23,6 +23,7 @@ class Manager {
       this.actions.push(action.level.update.lightLevel(lightLevel));
     });
     this.world.onPlayersMove((player: Player) => {
+      this.world.surface.updateTarget(player.pos, player.motion);
       this.actions.push(action.players.move(player));
     });
     this.world.surface.onMobMove((mob: Mob) => {

@@ -55,6 +55,10 @@ class Point {
     return this;
   }
 
+  public distance(pt: Point) {
+    return Math.sqrt(Math.pow(this.x - pt.x, 2) + Math.pow(this.y - pt.y, 2));
+  }
+
   public clone() {
     return new Point(this.x, this.y);
   }
