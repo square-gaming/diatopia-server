@@ -52,9 +52,7 @@ class Vector {
   }
 
   set(v: Vector): Vector;
-
   set(x: number, y: number): Vector;
-
   set(vOrX: Vector | number, y?: number) {
     if (vOrX instanceof Vector) {
       this.x = vOrX.x;
@@ -72,9 +70,7 @@ class Vector {
   }
 
   add(v: Vector): Vector;
-
   add(x: number, y: number): Vector;
-
   add(vOrX: Vector | number, y?: number) {
     if (vOrX instanceof Vector) {
       this.x += vOrX.x;
@@ -92,9 +88,7 @@ class Vector {
   }
 
   subtract(v: Vector): Vector;
-
   subtract(x: number, y: number): Vector;
-
   subtract(vOrX: Vector | number, y?: number) {
     if (vOrX instanceof Vector) {
       this.x -= vOrX.x;
@@ -112,9 +106,7 @@ class Vector {
   }
 
   multiply(v: Vector): Vector;
-
   multiply(x: number): Vector;
-
   multiply(vOrX: Vector | number) {
     if (vOrX instanceof Vector) {
       this.x *= vOrX.x;
@@ -132,9 +124,7 @@ class Vector {
   }
 
   divide(v: Vector): Vector;
-
   divide(x: number): Vector;
-
   divide(vOrX: Vector | number) {
     if (vOrX instanceof Vector) {
       this.x /= vOrX.x;

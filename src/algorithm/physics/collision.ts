@@ -53,7 +53,9 @@ export function collisionResponse(source: Block, target: Block) {
 export function collisionTest(source: Block, groups: Block[][]) {
   groups.forEach((group) => {
     group.forEach((target) => {
-      collisionResponse(source, target);
+      if (source.id !== target.id && source.layer === target.layer) {
+        collisionResponse(source, target);
+      }
     });
   });
 }

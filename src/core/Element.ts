@@ -15,12 +15,12 @@ abstract class Element extends EventEmitter {
   public set timer(timer: NodeJS.Timeout) {}
 
   public onDestroy(listener: (...arg: any[]) => void) {
-    this.on(EVENT.ELEMENT.DESTORY, listener);
+    this.on(EVENT.ELEMENT.DESTROY, listener);
   }
 
   public destroy() {
     clearInterval(this.timer);
-    this.emit(EVENT.ELEMENT.DESTORY);
+    this.emit(EVENT.ELEMENT.DESTROY);
   }
 
   public onCreate(listener: (...arg: any[]) => void) {

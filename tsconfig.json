@@ -14,11 +14,8 @@
     "declarationDir": "./dist",
     "outDir": "./dist",
     "typeRoots": ["node_modules/@types"],
-    "rootDir": ".",
+    "rootDir": "."
   },
-  "include": [
-    "src/**/*.ts",
-    "test/**/*.ts"
-  ],
-  "exclude": ["node_modues"]
+  "include": ["src/**/*.ts", "test/**/*.ts"],
+  "exclude": ["node_modules"]
 }

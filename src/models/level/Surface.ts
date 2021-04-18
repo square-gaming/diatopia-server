@@ -15,6 +15,7 @@ import Sheep from "../entity/mobs/Sheep";
 import Goat from "../entity/mobs/Goat";
 import Pig from "../entity/mobs/Pig";
 import Time from "../Time";
+import SpatialHashGrid from "../../lib/SpatialHashGrid";
 
 class Surface extends Level implements SurfaceInterface {
   constructor(time: Time) {
@@ -37,16 +38,33 @@ class Surface extends Level implements SurfaceInterface {
 
   protected create() {
     super.create();
+    // TODO: remove this toggle boolean after test
+    // eslint-disable-next-line no-constant-condition
+    this.spatialHashGrid = false
+      ? new SpatialHashGrid(
+          [
+            new Point(0, 0),
+            new Point(20 * GLOBAL.UNIT_LENGTH, 20 * GLOBAL.UNIT_LENGTH),
+          ],
+          [20, 20]
+        )
+      : undefined;
 
-    const entites = [
+    const entities = [
       new Cow(new Point(5 * GLOBAL.UNIT_LENGTH, 5 * GLOBAL.UNIT_LENGTH)),
       new Sheep(new Point(6 * GLOBAL.UNIT_LENGTH, 6 * GLOBAL.UNIT_LENGTH)),
       new Goat(new Point(7 * GLOBAL.UNIT_LENGTH, 7 * GLOBAL.UNIT_LENGTH)),
       new Pig(new Point(7 * GLOBAL.UNIT_LENGTH, 7 * GLOBAL.UNIT_LENGTH)),
     ];
 
-    entites.forEach((entity) => {
+    entities.forEach((entity) => {
+      this.spatialHashGrid?.updateClient(entity);
+
       entity.onMove((mob) => {
+        // TODO: remove console time, it is for performance testing
+        console.time("modMoveTime");
+        this.spatialHashGrid?.updateClient(mob);
+        console.timeEnd("modMoveTime");
         this.emit(EVENT.SURFACE.MOB.MOVE, mob);
       });
     });
@@ -55,7 +73,10 @@ class Surface extends Level implements SurfaceInterface {
       generateBlocks(20, 20, GLOBAL.UNIT_LENGTH),
       configureRule
     );
-    this.entities = entites;
+    this.blocks.forEach((block) => {
+      this.spatialHashGrid?.updateClient(block);
+    });
+    this.entities = entities;
     this.spawnPos = new Point(2 * GLOBAL.UNIT_LENGTH, 2 * GLOBAL.UNIT_LENGTH);
   }
 

@@ -3,8 +3,10 @@ import GLOBAL from "../constants/global";
 import type { Coordinate } from "../types/models";
 import Element from "./Element";
 import Vector from "../basics/Vector";
+import { nanoid } from "nanoid";
 
 abstract class Block extends Element {
+  id: string;
   name: string;
   layer: number;
   pos: Point;
@@ -16,9 +18,11 @@ abstract class Block extends Element {
     layer = 0,
     pos: Point | Coordinate = new Point(0, 0),
     aspect: Vector = new Vector(GLOBAL.UNIT_LENGTH, GLOBAL.UNIT_LENGTH),
-    isConcrete = false
+    isConcrete = false,
+    id: string = nanoid()
   ) {
     super();
+    this.id = id;
     this.name = name;
     this.layer = layer;
     this.pos = pos instanceof Point ? pos : new Point(pos);

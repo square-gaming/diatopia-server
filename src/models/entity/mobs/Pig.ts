@@ -16,7 +16,7 @@ class Pig extends Mob {
     }
   }
 
-  private wander() {
+  protected wander() {
     this.motion = wander(this.motion).divide(this.mass);
 
     if (!this.motion.isZero()) {

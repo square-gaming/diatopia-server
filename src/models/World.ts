@@ -39,19 +39,40 @@ class World extends Element {
 
   protected create() {
     this.surface.onMobMove((mob) => {
-      collisionTest(mob, [
-        this.surface.blocks,
-        this.surface.entities,
-        Array.from(this.players, ([, player]) => player),
-      ]);
+      // TODO: remove console time, it is for performance testing
+      console.time("surfaceMoveTime");
+      collisionTest(
+        mob,
+        this.surface.spatialHashGrid
+          ? [this.surface.spatialHashGrid.findNear(mob.pos, mob.aspect)]
+          : [
+              this.surface.blocks,
+              this.surface.entities,
+              Array.from(this.players.values()).filter(
+                (player) => player.dimension === DIMENSION.SURFACE
+              ),
+            ]
+      );
+      console.timeEnd("surfaceMoveTime");
     });
     this.onPlayersJoin((player) => {
       player.onMove(() => {
-        collisionTest(player, [
-          this.levels[player.dimension].blocks,
-          this.levels[player.dimension].entities,
-          Array.from(this.players, () => player),
-        ]);
+        // TODO: remove console time, it is for performance testing
+        console.time("playerMoveTime");
+        this.levels[player.layer].spatialHashGrid?.updateClient(player);
+        collisionTest(
+          player,
+          this.surface.spatialHashGrid
+            ? [this.surface.spatialHashGrid.findNear(player.pos, player.aspect)]
+            : [
+                this.levels[player.dimension].blocks,
+                this.levels[player.dimension].entities,
+                Array.from(this.players.values()).filter(
+                  (player) => player.dimension === DIMENSION.SURFACE
+                ),
+              ]
+        );
+        console.timeEnd("playerMoveTime");
         this.emit(EVENT.WORLD.PLAYERS.MOVE, player);
       });
     });

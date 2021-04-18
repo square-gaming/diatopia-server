@@ -9,6 +9,7 @@ import GLOBAL from "../../constants/global";
 import Element from "../../core/Element";
 import Vector from "../../basics/Vector";
 import type { BlocksType, EntitiesType } from "../../types";
+import SpatialHashGrid from "../../lib/SpatialHashGrid";
 
 abstract class Level extends Element implements LevelInterface {
   time: Time;
@@ -17,6 +18,7 @@ abstract class Level extends Element implements LevelInterface {
   entities: EntitiesType[];
   lightLevel: number;
   border: Vector;
+  spatialHashGrid?: SpatialHashGrid;
 
   constructor(
     time: Time,

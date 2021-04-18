@@ -23,7 +23,11 @@ class Manager {
       this.actions.push(action.level.update.lightLevel(lightLevel));
     });
     this.world.onPlayersMove((player: Player) => {
+      // TODO: remove console time, it is for performance testing
+      console.time("playersMoveTime");
+      this.world.levels[player.layer].spatialHashGrid?.updateClient(player);
       this.world.surface.updateTarget(player.pos, player.motion);
+      console.timeEnd("playersMoveTime");
       this.actions.push(action.players.move(player));
     });
     this.world.surface.onMobMove((mob: Mob) => {

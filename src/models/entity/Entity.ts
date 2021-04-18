@@ -8,7 +8,6 @@ import Vector from "../../basics/Vector";
 import GLOBAL from "../../constants/global";
 
 abstract class Entity extends Block implements EntityInterface {
-  id: string;
   nickName: string;
   rotation: number;
   motion: Vector;
@@ -23,8 +22,7 @@ abstract class Entity extends Block implements EntityInterface {
     rotation: number = 0,
     motion: Vector = new Vector()
   ) {
-    super(name, 1, pos, aspect, isConcrete);
-    this.id = id;
+    super(name, 1, pos, aspect, isConcrete, id);
     this.nickName = nickName;
     this.rotation = rotation;
     this.motion = motion;
