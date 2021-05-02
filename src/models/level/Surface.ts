@@ -38,14 +38,14 @@ class Surface extends Level implements SurfaceInterface {
   protected create() {
     super.create();
 
-    const entites = [
+    const entities = [
       new Cow(new Point(5 * GLOBAL.UNIT_LENGTH, 5 * GLOBAL.UNIT_LENGTH)),
       new Sheep(new Point(6 * GLOBAL.UNIT_LENGTH, 6 * GLOBAL.UNIT_LENGTH)),
       new Goat(new Point(7 * GLOBAL.UNIT_LENGTH, 7 * GLOBAL.UNIT_LENGTH)),
       new Pig(new Point(7 * GLOBAL.UNIT_LENGTH, 7 * GLOBAL.UNIT_LENGTH)),
     ];
 
-    entites.forEach((entity) => {
+    entities.forEach((entity) => {
       entity.onMove((mob) => {
         this.emit(EVENT.SURFACE.MOB.MOVE, mob);
       });
@@ -55,7 +55,7 @@ class Surface extends Level implements SurfaceInterface {
       generateBlocks(20, 20, GLOBAL.UNIT_LENGTH),
       configureRule
     );
-    this.entities = entites;
+    this.entities = entities;
     this.spawnPos = new Point(2 * GLOBAL.UNIT_LENGTH, 2 * GLOBAL.UNIT_LENGTH);
   }
 
