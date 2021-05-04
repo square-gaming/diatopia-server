@@ -3,11 +3,7 @@ abstract class Item {
   slot: number | undefined;
   id: string;
 
-  constructor(
-    id: string,
-    count: number,
-    slot?: number,
-  ) {
+  constructor(id: string, count: number, slot?: number) {
     this.id = id;
     this.count = count;
     this.slot = slot;
