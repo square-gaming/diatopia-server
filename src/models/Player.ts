@@ -6,6 +6,8 @@ import DIMENSION from "../constants/dimension";
 import EVENT from "../constants/event";
 import Vector from "../basics/Vector";
 import GLOBAL from "../constants/global";
+import Item from "./item/Item";
+import Door from "./item/Door";
 
 class Player extends Entity {
   spawnPos: Point;
@@ -13,6 +15,7 @@ class Player extends Entity {
   abilities: AbilitiesInfo;
   isMotion: boolean;
   health: number;
+  inventory: Item[];
 
   constructor(
     id: string,
@@ -36,6 +39,7 @@ class Player extends Entity {
     };
     this.isMotion = false;
     this.health = 9;
+    this.inventory = [new Door(1, 0)];
   }
 
   protected update() {
