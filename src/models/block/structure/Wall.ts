@@ -20,7 +20,7 @@ class Wall extends Structure implements WallInterface {
   };
 
   constructor(pos: Point | Coordinate, type: number) {
-    super("Wall", pos, type, true);
+    super("diatopia:wall", pos, type, true);
   }
 }
 

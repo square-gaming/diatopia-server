@@ -6,7 +6,7 @@ import Mob from "./Mob";
 
 class Sheep extends Mob {
   constructor(pos: Point) {
-    super("Sheep", pos, 10, 10, []);
+    super("diatopia:sheep", pos, 10, 10, []);
   }
 
   protected update() {

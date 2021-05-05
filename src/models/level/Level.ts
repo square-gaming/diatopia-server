@@ -38,7 +38,7 @@ abstract class Level extends Element implements LevelInterface {
   public getBlock(type: string, pos: Point) {
     return this.blocks.find((block) => {
       if (
-        block.name === type &&
+        block.id === type &&
         Math.floor(pos.x / GLOBAL.UNIT_LENGTH) * GLOBAL.UNIT_LENGTH ===
           block.pos.x &&
         Math.floor(pos.y / GLOBAL.UNIT_LENGTH) * GLOBAL.UNIT_LENGTH ===

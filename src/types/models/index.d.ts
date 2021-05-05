@@ -39,7 +39,7 @@ export interface FloorInfo {
 }
 export interface EntityInterface {
   id: string;
-  name: string;
+  uid: string;
   width: number;
   height: number;
   pos: Point;

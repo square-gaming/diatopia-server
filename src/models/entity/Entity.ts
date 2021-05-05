@@ -1,30 +1,30 @@
 import { nanoid } from "nanoid";
 import FACING from "../../constants/facing";
 import type { Facing } from "../../types";
-import type { EntityInterface, Coordinate } from "../../types/models";
+import type { Coordinate } from "../../types/models";
 import Point from "../../basics/Point";
 import Block from "../../core/Block";
 import Vector from "../../basics/Vector";
 import GLOBAL from "../../constants/global";
 
-abstract class Entity extends Block implements EntityInterface {
-  id: string;
+abstract class Entity extends Block {
+  uid: string;
   nickName: string;
   rotation: number;
   motion: Vector;
 
   constructor(
-    name: string,
+    id: string,
     pos: Point | Coordinate = new Point(0, 0),
     aspect: Vector = new Vector(GLOBAL.UNIT_LENGTH, GLOBAL.UNIT_LENGTH),
-    id: string = nanoid(),
+    uid: string = nanoid(),
     nickName = "anonymous",
     isConcrete = true,
     rotation: number = 0,
     motion: Vector = new Vector()
   ) {
-    super(name, 1, pos, aspect, isConcrete);
-    this.id = id;
+    super(id, 1, pos, aspect, isConcrete);
+    this.uid = uid;
     this.nickName = nickName;
     this.rotation = rotation;
     this.motion = motion;

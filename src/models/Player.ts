@@ -25,7 +25,7 @@ class Player extends Entity {
     dimension: Dimension = DIMENSION.SURFACE
   ) {
     super(
-      "Player",
+      "diatopia:player",
       pos,
       new Vector(GLOBAL.UNIT_LENGTH, GLOBAL.UNIT_LENGTH),
       id,

@@ -26,7 +26,7 @@ class Door extends Structure implements DoorInterface {
     toward: Toward,
     isOpen: boolean
   ) {
-    super("Door", pos, type, !isOpen);
+    super("diatopia:door", pos, type, !isOpen);
     this.toward = toward;
     this.isOpen = isOpen;
   }

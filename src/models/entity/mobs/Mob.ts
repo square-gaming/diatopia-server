@@ -15,13 +15,13 @@ abstract class Mob extends Entity {
   targetMotion?: Vector;
 
   constructor(
-    name: string,
+    id: string,
     pos: Point,
     mass: number,
     health: number,
     attributes: any[]
   ) {
-    super(name, pos);
+    super(id, pos);
     this.mass = mass;
     this.health = health;
     this.attributes = attributes;

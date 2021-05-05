@@ -3,7 +3,7 @@ import Light from "./Light";
 
 class Torch extends Light {
   constructor(pos: Point) {
-    super("Torch", pos, 14);
+    super("diatopia:torch", pos, 14);
   }
 }
 

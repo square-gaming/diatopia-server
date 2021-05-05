@@ -4,8 +4,8 @@ import Block from "../../../core/Block";
 abstract class Light extends Block {
   lightLevel: number;
 
-  constructor(name: string, pos: Point, lightLevel: number) {
-    super(name, 2, pos);
+  constructor(id: string, pos: Point, lightLevel: number) {
+    super(id, 2, pos);
     this.lightLevel = lightLevel;
   }
 }

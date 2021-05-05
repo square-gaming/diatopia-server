@@ -5,21 +5,21 @@ import Element from "./Element";
 import Vector from "../basics/Vector";
 
 abstract class Block extends Element {
-  name: string;
+  id: string;
   layer: number;
   pos: Point;
   aspect: Vector;
   isConcrete: boolean;
 
   constructor(
-    name: string,
+    id: string,
     layer = 0,
     pos: Point | Coordinate = new Point(0, 0),
     aspect: Vector = new Vector(GLOBAL.UNIT_LENGTH, GLOBAL.UNIT_LENGTH),
     isConcrete = false
   ) {
     super();
-    this.name = name;
+    this.id = id;
     this.layer = layer;
     this.pos = pos instanceof Point ? pos : new Point(pos);
     this.aspect = aspect;

@@ -13,14 +13,14 @@ abstract class Structure extends Block implements StructureInterface {
   frames: Segment[];
 
   constructor(
-    name: string,
+    id: string,
     pos: Point | Coordinate,
     type: number,
     isConcrete: boolean,
     frames: Segment[] = [new Segment(new Point(0, 0), new Point(0, 0))]
   ) {
     super(
-      name,
+      id,
       1,
       pos,
       new Vector(GLOBAL.UNIT_LENGTH, GLOBAL.UNIT_LENGTH),

@@ -32,7 +32,7 @@ const action = {
     move: (player: Player) => ({
       type: ACTION_TYPE.PLAYERS.MOVE,
       payload: {
-        uid: player.id,
+        uid: player.uid,
         pos: player.pos,
         motion: player.motion,
         rotation: player.rotation,

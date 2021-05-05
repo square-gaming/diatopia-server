@@ -37,7 +37,7 @@ class Floor extends Block {
   pattern: number;
 
   constructor(type: number, pos: Point | Coordinate) {
-    super("Floor", 0, pos);
+    super("diatopia:floor", 0, pos);
     this.type = type;
     this.pattern = 0;
     this.pos = pos instanceof Point ? pos : new Point(pos);
