@@ -9,6 +9,7 @@ import GLOBAL from "../../constants/global";
 import Element from "../../core/Element";
 import Vector from "../../basics/Vector";
 import type { BlocksType, EntitiesType } from "../../types";
+import Entity from "../entity/Entity";
 
 abstract class Level extends Element implements LevelInterface {
   time: Time;
@@ -33,6 +34,19 @@ abstract class Level extends Element implements LevelInterface {
     this.blocks = patternReconfigure(blocks, configureRule);
     this.entities = entities;
     this.lightLevel = lightLevel;
+  }
+
+  public clear(target: Entity) {
+    const found = this.entities.find((entity) => entity.uid === target.uid);
+
+    if (found) {
+      found.destroy();
+      this.entities = this.entities.filter(
+        (entity) => entity.uid !== found.uid
+      );
+    } else {
+      console.error();
+    }
   }
 
   public getBlock(type: string, pos: Point) {

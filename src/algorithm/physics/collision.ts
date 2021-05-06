@@ -1,6 +1,17 @@
 import Point from "../../basics/Point";
 import Block from "../../core/Block";
 
+export function isOverlap(source: Block, target: Block): boolean {
+  const collisionX: boolean =
+    source.borderPos[1].x >= target.borderPos[0].x &&
+    target.borderPos[1].x >= source.borderPos[0].x;
+  const collisionY: boolean =
+    source.borderPos[1].y >= target.borderPos[0].y &&
+    target.borderPos[1].y >= source.borderPos[0].y;
+
+  return collisionX && collisionY;
+}
+
 export function isCollision(
   source: Block,
   target: Block,

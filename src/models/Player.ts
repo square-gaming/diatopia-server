@@ -1,13 +1,12 @@
 import Entity from "./entity/Entity";
 import Point from "../basics/Point";
 import type { AbilitiesInfo, Coordinate } from "../types/models";
-import type { Dimension } from "../types";
+import type { Dimension, ItemsType } from "../types";
 import DIMENSION from "../constants/dimension";
 import EVENT from "../constants/event";
 import Vector from "../basics/Vector";
 import GLOBAL from "../constants/global";
 import Item from "./item/Item";
-import Door from "./item/Door";
 
 class Player extends Entity {
   spawnPos: Point;
@@ -39,7 +38,7 @@ class Player extends Entity {
     };
     this.isMotion = false;
     this.health = 9;
-    this.inventory = [new Door(1, 0)];
+    this.inventory = [];
   }
 
   protected update() {
@@ -90,6 +89,37 @@ class Player extends Entity {
 
   public onMove(listener: (player: Player) => void) {
     this.on(EVENT.PLAYER.MOVE, listener);
+  }
+
+  public onObtain(listener: (player: Player) => void) {
+    this.on(EVENT.PLAYER.OBTAIN, listener);
+  }
+
+  public obtain(entity: ItemsType): Item {
+    const found = this.inventory.find((item) => item.id === entity.item.id);
+
+    this.emit(EVENT.PLAYER.OBTAIN, this);
+
+    if (found) {
+      found.count += entity.item.count;
+      return found;
+    } else {
+      const inventoryMaxLimit = 10;
+      let slot = 0;
+
+      for (let i = 0; i < inventoryMaxLimit; i++) {
+        if (this.inventory.find((item) => item.slot === i)) {
+          continue;
+        } else {
+          slot = i;
+          break;
+        }
+      }
+
+      entity.item.slot = slot;
+      this.inventory.push(entity.item);
+      return entity.item;
+    }
   }
 
   private move(vec: Vector) {

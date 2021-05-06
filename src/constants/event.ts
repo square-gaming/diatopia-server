@@ -9,6 +9,7 @@ const EVENT = {
     PLAYERS: {
       JOIN: "WORLD_PLAYERS_JOIN",
       MOVE: "WORLD_PLAYERS_MOVE",
+      PICK_UP: "WORLD_PLAYERS_PICK_UP",
     },
   },
   SURFACE: {
@@ -19,6 +20,7 @@ const EVENT = {
   },
   PLAYER: {
     MOVE: "PLAYER_MOVE",
+    OBTAIN: "PLAYER_OBTAIN",
   },
   MOB: {
     MOVE: "MOB_MOVE",

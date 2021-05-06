@@ -14,6 +14,7 @@ import Cow from "../models/entity/mobs/Cow";
 import Sheep from "../models/entity/mobs/Sheep";
 import Goat from "../models/entity/mobs/Goat";
 import Pig from "../models/entity/mobs/Pig";
+import DoorItem from "../models/entity/item/Door";
 
 export type Dimension = 0 | 1;
 export type LightLevel = 0;
@@ -23,7 +24,9 @@ export type Toward = 0 | 1;
 export type Level = Surface | Underground;
 export type StructuresType = Wall | Door;
 export type BlocksType = Floor | Wall | Door | Torch;
-export type EntitiesType = Cow | Sheep | Goat | Pig;
+export type EntitiesType = MobsType | ItemsType;
+export type MobsType = Cow | Sheep | Goat | Pig;
+export type ItemsType = DoorItem;
 
 export interface Action {
   type: string;

@@ -3,10 +3,12 @@ import Vector from "../basics/Vector";
 import Wall from "../models/block/structure/Wall";
 import Door from "../models/block/structure/Door";
 import TOWARD from "../constants/toward";
-import type { BlocksType } from "../types";
+import type { BlocksType, MobsType, ItemsType } from "../types";
 import Torch from "../models/block/light/Torch";
 import Point from "../basics/Point";
 import GLOBAL from "../constants/global";
+import Mob from "../models/entity/mobs/Mob";
+import Item from "../models/entity/item/Item";
 
 export function generateBlocks(width: number, height: number, size: number) {
   const blocks: BlocksType[] = [];
@@ -72,3 +74,15 @@ export const direction2Vector = [
 export function getRandom(min: number, max: number, isMaxInclusive = true) {
   return Math.random() * (max - min + (isMaxInclusive ? 1 : 0)) + min;
 }
+
+export const isMob = (data: any): data is MobsType => {
+  return data instanceof Mob;
+};
+
+export const areMobs = (datas: any[]): datas is MobsType[] => {
+  return datas.every((data) => isMob(data));
+};
+
+export const isItem = (data: any): data is ItemsType => {
+  return data instanceof Item;
+};

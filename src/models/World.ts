@@ -2,10 +2,12 @@ import Surface from "./level/Surface";
 import Underground from "./level/Underground";
 import Player from "./Player";
 import Time from "./Time";
-import { collisionTest } from "../algorithm/physics/collision";
+import { collisionTest, isOverlap } from "../algorithm/physics/collision";
 import EVENT from "../constants/event";
 import Element from "../core/Element";
 import DIMENSION from "../constants/dimension";
+import { isItem } from "../utils";
+import { ItemsType } from "../types";
 
 class World extends Element {
   levels: [Surface, Underground];
@@ -37,6 +39,12 @@ class World extends Element {
     this.on(EVENT.WORLD.PLAYERS.JOIN, listener);
   }
 
+  public onPlayersPickup(
+    listener: (player: Player, entity: ItemsType) => void
+  ) {
+    this.on(EVENT.WORLD.PLAYERS.PICK_UP, listener);
+  }
+
   protected create() {
     this.surface.onMobMove((mob) => {
       collisionTest(mob, [
@@ -47,12 +55,17 @@ class World extends Element {
     });
     this.onPlayersJoin((player) => {
       player.onMove(() => {
+        this.emit(EVENT.WORLD.PLAYERS.MOVE, player);
         collisionTest(player, [
           this.levels[player.dimension].blocks,
           this.levels[player.dimension].entities,
           Array.from(this.players, () => player),
         ]);
-        this.emit(EVENT.WORLD.PLAYERS.MOVE, player);
+        this.levels[player.dimension].entities.forEach((entity) => {
+          if (isItem(entity) && isOverlap(player, entity)) {
+            this.emit(EVENT.WORLD.PLAYERS.PICK_UP, player, entity);
+          }
+        });
       });
     });
   }

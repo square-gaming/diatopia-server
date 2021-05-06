@@ -1,7 +1,8 @@
 import ACTION_TYPE from "./actionType";
 import Player from "../models/Player";
-import type { StructuresType } from "../types";
+import type { EntitiesType, StructuresType } from "../types";
 import Mob from "../models/entity/mobs/Mob";
+import Item from "../models/item/Item";
 
 const action = {
   level: {
@@ -12,6 +13,12 @@ const action = {
       }),
       structure: (target: StructuresType) => ({
         type: ACTION_TYPE.LEVEL.UPDATE.STRUCTURE,
+        payload: target,
+      }),
+    },
+    clear: {
+      entity: (target: EntitiesType) => ({
+        type: ACTION_TYPE.LEVEL.CLEAR.ENTITY,
         payload: target,
       }),
     },
@@ -42,6 +49,13 @@ const action = {
     leave: (uid: string) => ({
       type: ACTION_TYPE.PLAYERS.LEAVE,
       payload: uid,
+    }),
+    obtain: (player: Player, item: Item) => ({
+      type: ACTION_TYPE.PLAYERS.OBTAIN,
+      payload: {
+        uid: player.uid,
+        item,
+      },
     }),
   },
 };

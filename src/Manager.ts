@@ -26,6 +26,13 @@ class Manager {
       this.world.surface.updateTarget(player.pos, player.motion);
       this.actions.push(action.players.move(player));
     });
+    this.world.onPlayersPickup((player, entity) => {
+      const item = player.obtain(entity);
+
+      this.world.surface.clear(entity);
+      this.actions.push(action.level.clear.entity(entity));
+      this.actions.push(action.players.obtain(player, item));
+    });
     this.world.surface.onMobMove((mob: Mob) => {
       this.actions.push(action.entity.mob.move(mob));
     });

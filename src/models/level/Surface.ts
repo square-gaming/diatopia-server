@@ -1,6 +1,6 @@
 import type { SurfaceInterface } from "../../types/models";
 import Level from "./Level";
-import { generateBlocks } from "../../utils";
+import { generateBlocks, isMob } from "../../utils";
 import Point from "../../basics/Point";
 import Vector from "../../basics/Vector";
 import GLOBAL from "../../constants/global";
@@ -14,6 +14,7 @@ import Cow from "../entity/mobs/Cow";
 import Sheep from "../entity/mobs/Sheep";
 import Goat from "../entity/mobs/Goat";
 import Pig from "../entity/mobs/Pig";
+import Door from "../entity/item/Door";
 import Time from "../Time";
 
 class Surface extends Level implements SurfaceInterface {
@@ -31,7 +32,9 @@ class Surface extends Level implements SurfaceInterface {
 
   public updateTarget(pos: Point, motion: Vector) {
     this.entities.forEach((entity) => {
-      entity.updateTarget(pos, motion);
+      if (isMob(entity)) {
+        entity.updateTarget(pos, motion);
+      }
     });
   }
 
@@ -43,13 +46,17 @@ class Surface extends Level implements SurfaceInterface {
       new Sheep(new Point(6 * GLOBAL.UNIT_LENGTH, 6 * GLOBAL.UNIT_LENGTH)),
       new Goat(new Point(7 * GLOBAL.UNIT_LENGTH, 7 * GLOBAL.UNIT_LENGTH)),
       new Pig(new Point(7 * GLOBAL.UNIT_LENGTH, 7 * GLOBAL.UNIT_LENGTH)),
+      new Door(new Point(4 * GLOBAL.UNIT_LENGTH, 4 * GLOBAL.UNIT_LENGTH)),
     ];
 
     entities.forEach((entity) => {
-      entity.onMove((mob) => {
-        this.emit(EVENT.SURFACE.MOB.MOVE, mob);
-      });
+      if (isMob(entity)) {
+        entity.onMove((mob) => {
+          this.emit(EVENT.SURFACE.MOB.MOVE, mob);
+        });
+      }
     });
+
     this.lightLevel = 11;
     this.blocks = patternReconfigure(
       generateBlocks(20, 20, GLOBAL.UNIT_LENGTH),
