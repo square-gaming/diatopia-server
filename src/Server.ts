@@ -1,7 +1,5 @@
 import http from "http";
-import path from "path";
 import { setInterval } from "timers";
-import { app, BrowserWindow } from "electron";
 import WebSocket from "ws";
 import { nanoid } from "nanoid";
 import Manager from "./Manager";
@@ -9,12 +7,9 @@ import MessageHandle from "./controllers/receiver";
 import type { Action } from "./types";
 import action from "./constants/action";
 import GLOBAL from "./constants/global";
-import IPC_CHANNEL from "./constants/ipcChannel";
 
 class Server {
   wss: WebSocket.Server;
-
-  win: BrowserWindow | undefined;
 
   manager: Manager;
 
@@ -24,18 +19,6 @@ class Server {
     this.wss = new WebSocket.Server(options);
     this.manager = new Manager();
     this.pushTimer = setInterval(this.push.bind(this), GLOBAL.TICK_PERIOD);
-
-    app.whenReady().then(this.createWindow.bind(this));
-    app.on("window-all-closed", () => {
-      if (process.platform !== "darwin") {
-        app.quit();
-      }
-    });
-    app.on("activate", () => {
-      if (BrowserWindow.getAllWindows().length === 0) {
-        this.createWindow();
-      }
-    });
   }
 
   public broadcast(data: Action[]): void;
@@ -55,9 +38,7 @@ class Server {
   }
 
   public listen() {
-    console.log(
-      `WebSocket listening on ws://${this.wss.options.host}:${this.wss.options.port}`
-    );
+    console.log(`WebSocket listening`);
     this.wss.addListener(
       "connection",
       function connection(
@@ -68,22 +49,9 @@ class Server {
         const uid = nanoid();
 
         req.headers.cookie = `uid=${uid};`;
-        this.win?.webContents.send(IPC_CHANNEL.CLIENT.CONNECT, uid);
         this.websocketSetup(ws, req);
       }.bind(this)
     );
-  }
-
-  private createWindow() {
-    this.win = new BrowserWindow({
-      width: 800,
-      height: 600,
-      webPreferences: {
-        contextIsolation: true,
-        preload: path.join(__dirname, "preload.js"),
-      },
-    });
-    this.win.loadFile(path.join(__dirname, "gui.html"));
   }
 
   private push() {
@@ -119,7 +87,6 @@ class Server {
         console.log(`Player ${uid} disconnects`);
         this.manager.removePlayer(uid);
         this.manager.actions.push(action.players.leave(uid));
-        this.win?.webContents.send(IPC_CHANNEL.CLIENT.DISCONNECT, uid);
       }.bind(this)
     );
 
