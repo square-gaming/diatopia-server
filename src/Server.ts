@@ -1,7 +1,5 @@
 import http from "http";
-import path from "path";
 import { setInterval } from "timers";
-import { app, BrowserWindow } from "electron";
 import WebSocket from "ws";
 import { nanoid } from "nanoid";
 import Manager from "./Manager";
@@ -12,7 +10,7 @@ import GLOBAL from "./constants/global";
 
 class Server {
   wss: WebSocket.Server;
-  
+
   manager: Manager;
 
   pushTimer: NodeJS.Timeout | undefined;
@@ -40,9 +38,7 @@ class Server {
   }
 
   public listen() {
-    console.log(
-      `WebSocket listening`
-    );
+    console.log(`WebSocket listening`);
     this.wss.addListener(
       "connection",
       function connection(
