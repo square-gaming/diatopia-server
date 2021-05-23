@@ -1,47 +1,29 @@
 import http from "http";
-import path from "path";
 import { setInterval } from "timers";
-import { app, BrowserWindow } from "electron";
 import WebSocket from "ws";
 import { nanoid } from "nanoid";
 import Manager from "./Manager";
 import MessageHandle from "./controllers/receiver";
 import type { Action } from "./types";
 import action from "./constants/action";
+import { events } from "./constants/dashboardEvents";
 import GLOBAL from "./constants/global";
-import IPC_CHANNEL from "./constants/ipcChannel";
+import { Observable, Observer } from "./types/observable";
 
-class Server {
+class Server implements Observable {
   wss: WebSocket.Server;
-
-  win: BrowserWindow | undefined;
-
   manager: Manager;
-
+  observers: Observer[] = [];
   pushTimer: NodeJS.Timeout | undefined;
 
   constructor(options?: WebSocket.ServerOptions) {
     this.wss = new WebSocket.Server(options);
     this.manager = new Manager();
     this.pushTimer = setInterval(this.push.bind(this), GLOBAL.TICK_PERIOD);
-
-    app.whenReady().then(this.createWindow.bind(this));
-    app.on("window-all-closed", () => {
-      if (process.platform !== "darwin") {
-        app.quit();
-      }
-    });
-    app.on("activate", () => {
-      if (BrowserWindow.getAllWindows().length === 0) {
-        this.createWindow();
-      }
-    });
   }
 
   public broadcast(data: Action[]): void;
-
   public broadcast(data: Action[], sender: WebSocket, dataToSender: any): void;
-
   public broadcast(data: Action[], sender?: WebSocket, dataToSender?: any) {
     this.wss.clients.forEach(function (this: WebSocket, client: WebSocket) {
       if (client.readyState === WebSocket.OPEN) {
@@ -60,30 +42,14 @@ class Server {
     );
     this.wss.addListener(
       "connection",
-      function connection(
-        this: Server,
-        ws: WebSocket,
-        req: http.IncomingMessage
-      ) {
+      (ws: WebSocket, req: http.IncomingMessage) => {
         const uid = nanoid();
 
         req.headers.cookie = `uid=${uid};`;
-        this.win?.webContents.send(IPC_CHANNEL.CLIENT.CONNECT, uid);
         this.websocketSetup(ws, req);
-      }.bind(this)
+        this.notify(events.player.join(uid));
+      }
     );
-  }
-
-  private createWindow() {
-    this.win = new BrowserWindow({
-      width: 800,
-      height: 600,
-      webPreferences: {
-        contextIsolation: true,
-        preload: path.join(__dirname, "preload.js"),
-      },
-    });
-    this.win.loadFile(path.join(__dirname, "gui.html"));
   }
 
   private push() {
@@ -100,31 +66,41 @@ class Server {
 
     console.log(`Player ${uid} connects`);
 
-    ws.on(
-      "message",
-      function (this: Server, message: string) {
-        const data: { type: string; payload: any } = JSON.parse(message);
+    ws.on("message", (message: string) => {
+      const data: { type: string; payload: any } = JSON.parse(message);
 
-        if (uid) {
-          MessageHandle[data.type](uid, data, this.manager, ws);
-        } else {
-          console.error("Someone sending message without cookie.");
-        }
-      }.bind(this)
-    );
+      if (uid) {
+        MessageHandle[data.type](uid, data, this.manager, ws);
+      } else {
+        console.error("Someone sending message without cookie.");
+      }
+    });
 
-    ws.on(
-      "close",
-      function (this: Server) {
-        console.log(`Player ${uid} disconnects`);
-        this.manager.removePlayer(uid);
-        this.manager.actions.push(action.players.leave(uid));
-        this.win?.webContents.send(IPC_CHANNEL.CLIENT.DISCONNECT, uid);
-      }.bind(this)
-    );
+    ws.on("close", () => {
+      console.log(`Player ${uid} disconnects`);
+      this.manager.removePlayer(uid);
+      this.manager.actions.push(action.players.leave(uid));
+      this.notify(events.player.leave(uid));
+    });
 
     ws.on("error", function (e: Error) {
       console.error("error", e);
+    });
+  }
+
+  public add(observer: Observer) {
+    this.observers.push(observer);
+  }
+
+  public remove(targetObserver: Observer) {
+    this.observers = this.observers.filter(
+      (observer) => targetObserver !== observer
+    );
+  }
+
+  public notify(event: Action) {
+    this.observers.forEach((observer) => {
+      observer.handle(event);
     });
   }
 }

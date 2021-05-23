@@ -15,6 +15,7 @@ import Sheep from "../models/entity/mobs/Sheep";
 import Goat from "../models/entity/mobs/Goat";
 import Pig from "../models/entity/mobs/Pig";
 import DoorItem from "../models/entity/item/Door";
+import { Observable } from "./observable";
 
 export type Dimension = 0 | 1;
 export type LightLevel = 0;
@@ -43,7 +44,7 @@ export interface ManagerInterface {
   removePlayer: (uid: string) => void;
   getBlocks: (dimension: Dimension, pos: Point) => BlocksType[];
 }
-export interface ServerInterface {
+export interface ServerInterface extends Observable {
   wss: WebSocket.Server;
   manager: Manager;
   pushTimer: NodeJS.Timeout | undefined;
