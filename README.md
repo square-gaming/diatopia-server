@@ -36,12 +36,9 @@ touch .env
 type following variables
 
 ```
-WSS_HOST=HOST_IP
-WSS_PORT=PORT_NUMBER
-WSS_PATH=URL_PATH
-
-DASHBOARD_PORT=PORT_NUMBER
-DASHBOARD_PATH=DASHBOARD_PATH
+PORT=3001
+WSS_PATH=/websocket
+DASHBOARD_PATH=/dashboard
 ```
 
 ## Running the npm scripts
