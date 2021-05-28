@@ -4,8 +4,8 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run build && electron build/index.js",
-    "dev": "nodemon --watch src --exec \"npm run build && electron build/index.js --debug\" src/index.ts",
+    "start": "npm run build && node build/index.js",
+    "dev": "nodemon --watch src --exec \"npm run build && node build/index.js --debug\" src/index.ts",
     "lint": "eslint \"src/**\"",
     "build": "babel src --out-dir build --copy-files --extensions .ts"
   },
@@ -33,7 +33,6 @@
     "@typescript-eslint/eslint-plugin": "^4.15.1",
     "@typescript-eslint/parser": "^4.15.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
-    "electron": "^12.0.0",
     "eslint": "^7.20.0",
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^7.2.0",

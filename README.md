@@ -8,7 +8,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-Check you got proper version Node.js and npm already. 
+Check you got proper version Node.js and npm already.
 
 ```
 node --version
@@ -36,9 +36,9 @@ touch .env
 type following variables
 
 ```
-WSS_HOST=HOST_IP
-WSS_PORT=PORT_NUMBER
-WSS_PATH=URL_PATH
+PORT=3001
+WSS_PATH=/websocket
+DASHBOARD_PATH=/dashboard
 ```
 
 ## Running the npm scripts
