@@ -37,7 +37,7 @@ class Player extends Entity {
       speed: 16,
     };
     this.isMotion = false;
-    this.health = 9;
+    this.health = 10;
     this.inventory = [];
   }
 
